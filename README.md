@@ -56,5 +56,12 @@ resolves from an explicitly named CUDA 12.8 index so the lockfile records which 
 used.
 
 Development box, against which all wall-clock measurements should be read: RTX 3060
-(12 GB, sm_86), 4 CPU cores, 47 GB RAM. Cores are the binding constraint — neighborhood
-sampling and mutation replay are CPU-bound.
+(12 GB, sm_86), 4 CPU cores, 47 GB RAM.
+
+Measured 2026-08-27 on this box, two-layer GraphSAGE at 128 dims and mean degree 10:
+full-graph inference costs 0.040 s at 200k nodes and 0.204 s at 1M nodes, and runs out
+of the 12 GiB of VRAM somewhere below 4M nodes. Full recomputation on this hardware
+therefore does not become slow, it becomes impossible — VRAM caps full-graph refresh at
+roughly 1-2M nodes, and past that, neighbor sampling on 4 cores is the constraint. Any
+refresh result measured at citation-benchmark scale (Cora 2.7k, CiteSeer 3.3k, PubMed
+19.7k) would be reporting scheduling noise.

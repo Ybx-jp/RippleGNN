@@ -12,8 +12,15 @@ license-files = ["LICENSE"]
 # dependency optional is that some installs do not need it; here it is the subject of
 # the project and a checkout without it cannot run anything.
 dependencies = [
-    "torch>=2.9",
+    # torch is pinned exactly, not floated. pyg-lib ships per-torch-version wheels and
+    # its index URL embeds that version, so a float here silently breaks the neighbor
+    # sampler — measured: NeighborLoader raises ImportError without pyg-lib or
+    # torch-sparse, and sampling is the CPU-bound path this project measures.
+    "torch==2.11.0",
     "torch-geometric>=2.8",
+    "pyg-lib>=0.7",
+    "networkx>=3.4",
+    "scikit-learn>=1.6",
     "numpy>=2.1",
     "scipy>=1.14",
     "pandas>=2.2",
@@ -22,7 +29,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0", "pytest-xdist>=3.6", "ruff==0.15.20"]
+dev = ["pytest>=8.0", "pytest-xdist>=3.6", "ruff==0.15.20", "jupyterlab>=4.3", "seaborn>=0.13"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/ripple_gnn"]
@@ -46,5 +53,12 @@ name = "pytorch-cu128"
 url = "https://download.pytorch.org/whl/cu128"
 explicit = true
 
+[[tool.uv.index]]
+name = "pyg"
+url = "https://data.pyg.org/whl/torch-2.11.0+cu128.html"
+format = "flat"
+explicit = true
+
 [tool.uv.sources]
 torch = { index = "pytorch-cu128" }
+pyg-lib = { index = "pyg" }
