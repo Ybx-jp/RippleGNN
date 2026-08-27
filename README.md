@@ -34,9 +34,11 @@ The dependency direction is one-way: `experiments/` may import `src/`, never the
 
 ## Method
 
-Every study under `experiments/` commits its `preregistration.md` before its first run
-against real data, and never edits it afterward — the git history of that file is its
-pre-registration timestamp. `run.py` takes a pinned dataset and a seed, regenerates
+Every study under `experiments/` commits and **pushes** its `preregistration.md` before
+its first run against real data, and never edits it afterward. The push is what
+timestamps it: a local commit date is written by the machine that made it, so on a repo
+its author controls it is not an independent witness, while the remote's record of when
+it received the commit is. `run.py` takes a pinned dataset and a seed, regenerates
 `results.json`, and contains no number that is not computed, so a hypothesis that fails
 can falsify the write-up's own text.
 
