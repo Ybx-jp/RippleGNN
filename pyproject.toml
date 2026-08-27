@@ -5,6 +5,8 @@ description = "Investigating cheap refresh strategies that keep an inductive GNN
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "Jackson Porter" }]
+license = "MIT"
+license-files = ["LICENSE"]
 
 # torch is a base dependency rather than an extra. The usual reason to make a heavy
 # dependency optional is that some installs do not need it; here it is the subject of

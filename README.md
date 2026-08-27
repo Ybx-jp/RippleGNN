@@ -6,7 +6,7 @@ paying the full cost of recomputing every embedding after every change.
 > Given an evolving graph and a trained inductive GNN, what is the cheapest refresh
 > strategy that keeps its embedding space sufficiently faithful for downstream use?
 
-The research contract is `dynamic_graph_embedding_refresh_RESEARCH_MANIFEST.md`, and it
+The research contract is `MANIFEST.md`, and it
 governs. This project is discovery first: it does not assume a production system ought to
 exist, and it does not commit to an architecture before the behavior of the problem is
 understood. Systems work is earned by experimental evidence.
