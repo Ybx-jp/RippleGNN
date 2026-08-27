@@ -1,0 +1,48 @@
+[project]
+name = "ripple-gnn"
+version = "0.1.0"
+description = "Investigating cheap refresh strategies that keep an inductive GNN's embedding space faithful as its graph evolves"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Jackson Porter" }]
+
+# torch is a base dependency rather than an extra. The usual reason to make a heavy
+# dependency optional is that some installs do not need it; here it is the subject of
+# the project and a checkout without it cannot run anything.
+dependencies = [
+    "torch>=2.9",
+    "torch-geometric>=2.8",
+    "numpy>=2.1",
+    "scipy>=1.14",
+    "pandas>=2.2",
+    "matplotlib>=3.9",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-xdist>=3.6", "ruff==0.15.20"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ripple_gnn"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+# Pin the CUDA build explicitly. PyPI's default linux torch wheel is CUDA-enabled but
+# which CUDA it carries moves with the release; naming the index makes the lock say
+# which one this box resolved. Box: RTX 3060 (sm_86), driver 580.173 (CUDA 13.0 ceiling).
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }

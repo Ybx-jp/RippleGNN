@@ -1,0 +1,30 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.ruff_cache/
+.pytest_cache/
+*.egg-info/
+
+# Datasets and checkpoints are regenerable and large; the manifest that names them
+# is committed, the bytes are not.
+data/
+checkpoints/
+
+# Outputs: ignore generated artifacts by default; force-keep committed result figures.
+# A new experiment run needs no new ignore line.
+outputs/*
+!outputs/figures/
+outputs/figures/*
+!outputs/figures/.gitkeep
+
+# Session scratch: ignore logs and artifacts but KEEP .py committable — a measurement
+# script is work-product, the numbers it printed are not.
+scratchpad/*
+!scratchpad/*.py
+
+# Private surfaces: symlinks into a sibling checkout that is not published.
+# Listed here so they cannot be staged by accident.
+/CLAUDE.md
+/lab
+/notes
