@@ -27,3 +27,6 @@ scratchpad/*
 # Listed here so they cannot be staged by accident.
 /CLAUDE.md
 /notes
+
+# Local agent configuration. Not part of the research record.
+/.claude
