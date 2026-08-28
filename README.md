@@ -29,7 +29,7 @@ has been run and no result is claimed.
 | `tests/` | pytest. One file per source module. |
 | `experiments/` | Pre-registered studies. See `experiments/README.md`. |
 | `lab/` | The working record: one dated page per thing tried, plus its probe scripts. |
-| `ledger/` | Every load-bearing claim, typed and tracked. See `ledger/README.md`. |
+| `ledger/` | The claims record. The 2026-08 ledger is quarantined at `ledger/archive/`; see `ledger/README.md`. |
 | `outputs/` | Generated artifacts. Ignored except committed figures. |
 
 The dependency direction is one-way: `experiments/` may import `src/`, never the reverse.
@@ -55,22 +55,21 @@ reproduces a draw, not a result. Baselines are full recomputation, no refresh, a
 local refresh — a comparison omitting full recomputation is not a result. Negative and
 null results are kept.
 
-Claims are tracked rather than remembered. `ledger/` carries every statement something
-downstream depends on, typed on two separate axes that are never combined into a score:
-an **evidence grade** — how it was established, from `asserted` through `argued`,
-`measured`, `controlled`, to `preregistered` — and a **credence**, recorded only where a
-claim is genuinely a bet. Anything at `measured` or above names the metric, cohort and
-conditions it held under, because the ledger exists to catch a specific failure: a real
-measurement, generalized past the conditions it was taken in, read later as a broader
-result than it was.
+Claims are tracked rather than remembered. The first claims ledger, built on
+2026-08-27, is quarantined at `ledger/archive/`: an audit run the same day compared
+every quotation in its entries against the source each names and found 23 of 47
+faithful, 24 defective. The audit is recorded inside the entries themselves as appended
+verdicts — the frozen-statement discipline held, so the defective text and its
+correction sit together on the page — and the archive is closed rather than repaired:
+no new document may cite it, and an entry returns only by being re-derived from its
+primary sources. `ledger/README.md` states the quarantine rules, and
+`ledger/references.py` enforces the verbatim half of them mechanically. A replacement
+apparatus is being designed against the audit's defect classes; no experiment runs
+until it is proven.
 
-Entries are frozen when written and verdicts append below them, so a claim that falls
-keeps its original text and its history. Refuted and superseded claims stay. Where a
-claim is restated elsewhere in the repo, the ledger records where, and
-`ledger/references.py` reports any standing document still carrying one that has fallen.
-
-The ledger opens with the project's own overturned claims, which is the honest place for
-it to start.
+The research record therefore opens with its own instrument failing its first audit,
+kept in full, which is the honest place for a project about establishing truth to
+start.
 
 ## Setup
 

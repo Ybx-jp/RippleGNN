@@ -1,7 +1,9 @@
-"""Check every ledger entry against the schema in ledger/README.md.
+"""Check every archived ledger entry against the schema in ledger/archive/README.md.
 
-This exists so `locator` and `grade` have a reader. A required field nothing reads is a
-written-but-never-used defect, and this repo has already measured that failure elsewhere.
+The ledger was quarantined on 2026-08-28 (see ledger/README.md); the entries under
+archive/ are frozen evidence, including their recorded defects, and this keeps them
+well-formed against the schema they were written under. Evidence that drifts is
+worthless, which is why the checker outlives the apparatus it was built for.
 
 Run from anywhere:  python3 ledger/validate.py
 Exit 1 on any violation.
@@ -150,8 +152,8 @@ def check(path):
 
 
 def main():
-    paths = sorted(glob.glob(os.path.join(ROOT, "claims", "*.md"))
-                   + glob.glob(os.path.join(ROOT, "predictions", "*.md")))
+    paths = sorted(glob.glob(os.path.join(ROOT, "archive", "claims", "*.md"))
+                   + glob.glob(os.path.join(ROOT, "archive", "predictions", "*.md")))
     if not paths:
         print("no entries found")
         return 1

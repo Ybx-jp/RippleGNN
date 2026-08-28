@@ -1,13 +1,11 @@
-"""Find restatements of ledger claims in the documents, and flag what needs updating.
+"""Find restatements of archived ledger claims in the documents, and flag violations.
 
-The invariant this serves: a claim repeated outside the ledger is recorded in that
-claim's References section. Maintenance happens at write time (you write the claim into
-a document, you append the location here); verification happens at read time (this).
-
-The link runs one way. The ledger names its references; a referencing document never
-names a ledger entry. A claim's status lives in exactly one place, and an id copied into
-a document is a pointer that goes stale the moment that status changes -- silently,
-because nothing checks it from that side.
+The ledger was quarantined on 2026-08-28 (see ledger/README.md). This checker now
+enforces the verbatim half of the quarantine rule: no new document may copy an archived
+claim. A copy at a location an entry's References section does not already list is a
+violation -- before the quarantine it meant write-time maintenance was skipped; now it
+means the quarantine was breached. References recorded before the quarantine stay
+recorded, and a standing document still carrying a fallen claim is still work.
 
 WHAT THIS CANNOT DO. It matches a frozen fingerprint against the tree, so it finds
 COPIES. A restatement in different words is invisible to it and no amount of tuning
@@ -68,8 +66,8 @@ def normalize(text):
 
 
 def entries():
-    for path in sorted(glob.glob(os.path.join(ROOT, "claims", "*.md"))
-                       + glob.glob(os.path.join(ROOT, "predictions", "*.md"))):
+    for path in sorted(glob.glob(os.path.join(ROOT, "archive", "claims", "*.md"))
+                       + glob.glob(os.path.join(ROOT, "archive", "predictions", "*.md"))):
         text = io.open(path, encoding="utf-8").read()
         fp = re.search(r'^fingerprint:[ \t]*"(.*)"[ \t]*$', text, re.M)
         ident = re.search(r"^id:[ \t]*(.*)$", text, re.M)
@@ -132,7 +130,8 @@ def main():
 
     if unlisted:
         print("COPIES FOUND AT LOCATIONS THE ENTRY DOES NOT LIST")
-        print("  (write-time maintenance was skipped, or the claim was copied since)\n")
+        print("  (the archive is quarantined -- a new copy of an archived claim "
+              "breaches it)\n")
         for ident, rel, status in unlisted:
             print(f"  {rel}\n      restates `{ident}` (status `{status}`)")
         print()
