@@ -75,9 +75,15 @@ smoothing will look faithful while all learned signal has drifted.
 ## The unit of analysis is not the node
 
 More independent mutation episodes and more seeds buy more validity than more nodes per
-snapshot. A smaller graph replayed over many episodes dominates the largest graph that
-fits in memory. Power comes from the number of independent episodes, and a single
-snapshot of a huge graph is n=1 however many nodes it has.
+snapshot. The design-effect argument is about the number of independent *episodes*, which
+is not the same axis as graph size: the correct form is many episodes on one
+adequately-sized graph, not many tiny graphs. Power comes from the number of independent
+episodes, and a single snapshot of a huge graph is n=1 however many nodes it has.
+
+Adequately-sized is not a node count. The selection axis is whether the dataset's own
+statistics leave room for a refresh effect to exist at all: a benchmark that trains on
+83-90% of its nodes has an artificially small distribution shift and no headroom for one
+to live in.
 
 ## The run.py contract
 

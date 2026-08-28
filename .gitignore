@@ -26,5 +26,4 @@ scratchpad/*
 # Private surfaces: symlinks into a sibling checkout that is not published.
 # Listed here so they cannot be staged by accident.
 /CLAUDE.md
-/lab
 /notes

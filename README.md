@@ -28,9 +28,17 @@ has been run and no result is claimed.
 | `src/ripple_gnn/` | Library code. |
 | `tests/` | pytest. One file per source module. |
 | `experiments/` | Pre-registered studies. See `experiments/README.md`. |
+| `lab/` | The working record: one dated page per thing tried, plus its probe scripts. |
+| `ledger/` | Every load-bearing claim, typed and tracked. See `ledger/README.md`. |
 | `outputs/` | Generated artifacts. Ignored except committed figures. |
 
 The dependency direction is one-way: `experiments/` may import `src/`, never the reverse.
+
+`lab/` and `experiments/` promise a reader different things and are not interchangeable.
+A lab note is cheap, dated, allowed to be wrong, and stays wrong under a banner rather
+than being rewritten; nothing in it should be cited as a result. An experiment is
+pre-registered and regenerable. Both are published, because for a discovery project the
+record of what was tried and discarded is part of the work, not scaffolding around it.
 
 ## Method
 
@@ -46,6 +54,23 @@ Reproducibility is the triple `(pinned dataset, pinned checkpoint, seed)`; a see
 reproduces a draw, not a result. Baselines are full recomputation, no refresh, and naive
 local refresh — a comparison omitting full recomputation is not a result. Negative and
 null results are kept.
+
+Claims are tracked rather than remembered. `ledger/` carries every statement something
+downstream depends on, typed on two separate axes that are never combined into a score:
+an **evidence grade** — how it was established, from `asserted` through `argued`,
+`measured`, `controlled`, to `preregistered` — and a **credence**, recorded only where a
+claim is genuinely a bet. Anything at `measured` or above names the metric, cohort and
+conditions it held under, because the ledger exists to catch a specific failure: a real
+measurement, generalized past the conditions it was taken in, read later as a broader
+result than it was.
+
+Entries are frozen when written and verdicts append below them, so a claim that falls
+keeps its original text and its history. Refuted and superseded claims stay. Where a
+claim is restated elsewhere in the repo, the ledger records where, and
+`ledger/references.py` reports any standing document still carrying one that has fallen.
+
+The ledger opens with the project's own overturned claims, which is the honest place for
+it to start.
 
 ## Setup
 
