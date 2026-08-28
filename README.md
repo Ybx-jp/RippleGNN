@@ -63,7 +63,12 @@ Development box, against which all wall-clock measurements should be read: RTX 3
 Measured 2026-08-27 on this box, two-layer GraphSAGE at 128 dims and mean degree 10:
 full-graph inference costs 0.040 s at 200k nodes and 0.204 s at 1M nodes, and runs out
 of the 12 GiB of VRAM somewhere below 4M nodes. Full recomputation on this hardware
-therefore does not become slow, it becomes impossible — VRAM caps full-graph refresh at
-roughly 1-2M nodes, and past that, neighbor sampling on 4 cores is the constraint. Any
-refresh result measured at citation-benchmark scale (Cora 2.7k, CiteSeer 3.3k, PubMed
-19.7k) would be reporting scheduling noise.
+therefore does not become slow, it becomes impossible.
+
+The ceiling is an edge count rather than a node count, because full-graph message
+passing materializes a tensor per edge: measured at ~0.51 GiB per million edges per 128
+dims, it arrives between 15M and 20M edges at 128 dims and moves with hidden dimension.
+At mean degree 10 that is roughly 1.5M nodes; at mean degree 99 it is 233k. Past it,
+neighbor sampling on 4 cores is the constraint. Any refresh result measured at
+citation-benchmark scale (Cora 2.7k, CiteSeer 3.3k, PubMed 19.7k) would be reporting
+scheduling noise.
