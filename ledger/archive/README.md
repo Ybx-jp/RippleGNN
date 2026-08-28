@@ -23,6 +23,13 @@ The rules for this directory:
 - An entry is carried forward only by re-deriving it into the replacement ledger from
   its primary sources, when something actually needs it — never by a bulk migration.
 
+One edit was made to archived entries, and it is disclosed here because an unmarked
+deletion is this ledger's own recorded defect class: before first publication, the
+`ticket:` and `source:` fields of P001–P004 carried machine identifiers for the
+consultations they cite. The identifiers were replaced with the descriptions they
+already resolved to ("dl consultation round 1", "round 2", section references kept),
+throughout history, before anything was pushed. No statement text was touched.
+
 The document below is the methodology the archive was written under, kept because the
 archive is not readable without it. It describes the archived apparatus, not the
 current one.
