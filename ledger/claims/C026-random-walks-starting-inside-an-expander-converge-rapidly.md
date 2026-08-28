@@ -28,6 +28,11 @@ The 65→78 uplift on A2; Reddit framed as "the negative-result arm"; mixing tim
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing, and untouched by lab/005 — this is the half of A2's mechanism that survives.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: the dl round-2 exchange §2, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Verbatim. Third-party: the expert identified it as JKNet's expander result. It is not the expander mixing lemma and should not be upgraded to one — the expert named no such theorem.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

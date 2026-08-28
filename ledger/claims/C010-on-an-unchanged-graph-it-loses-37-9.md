@@ -31,6 +31,11 @@ The rank-primary rule in `experiments/README.md`; dl's instruction to carry it f
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing, and **corroborated from literature** by eval-meth R2 Correction 3 (sampling-order seed instability comparable to a real data change, on *trained* models) — which upgrades it past the "qualitative only" caveat lab/002 itself imposed.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: `lab/002-the-noise-floor-is-a-rank-metric-problem.md`, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Quotation verified verbatim against the source this entry names, allowing only markdown emphasis and sentence-case. No words added, dropped or reordered, and no unmarked elision.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

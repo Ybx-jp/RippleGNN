@@ -31,6 +31,11 @@ Every fidelity number the project will report
   - read-in: `lab/claims-inventory-draft.md`
   - note: Well supported.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: `experiments/README.md`:36, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Unmarked deletion. The source reads "A geometric figure (cosine, L2) may accompany one"; this entry drops "(cosine, L2)" with no elision mark. Meaning is unaffected; the quotation is not verbatim.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

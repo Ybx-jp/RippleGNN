@@ -1,6 +1,10 @@
 # Ledger index
 
-Generated from the entries. Do not hand-edit — regenerate.
+Maintained by hand against the entries. An earlier version of this line said the file
+was generated and must not be hand-edited; no generator was ever written, so the
+instruction described a tool that does not exist while the file was in fact edited by
+hand. The counts below are recomputed from the entries when they change; `validate.py`
+and `references.py` are the checks that actually run.
 
 Backfilled 2026-08-27 from `lab/claims-inventory-draft.md`, which read the four
 consultation exchanges in full, `lab/001`-`lab/005`, `MANIFEST.md`,
@@ -10,8 +14,16 @@ Schema: `ledger/README.md`.
 
 ## Verdict provenance
 
-26 verdicts name a source · 30 record that a search found nothing ·
+74 verdicts name a source · 30 record that a search found nothing ·
 5 record a broken chain.
+
+Every entry whose statement quotes a source has been compared against that source
+(47/47, reported by `validate.py`). The audit of 2026-08-27 read the four consultation
+exchanges and every repo document a `source:` field names, and appended a verdict to each
+of the 48 entries it touched. 12 came out `contested`: text inside quotation marks that
+the named source does not contain, an elision that removed the condition the sentence
+depended on, or a grade the source expressly denied. Those verdicts are the audit's
+record; the frozen statements are unchanged, because they are frozen.
 
 The five broken chains were later resolved by a repair verdict appended to each entry:
 four recovered a primary third-party source, one recorded that a search found none. The

@@ -28,6 +28,11 @@ dl's R1 experiment; prediction A2; the mixing-time independent variable
   - read-in: `lab/claims-inventory-draft.md`
   - note: **Directly contradicted in its stated form by lab/005**: for a mean aggregator the governing quantity is the invalidation set as a *fraction* of the neighbourhood, which makes it a property of the model's aggregator after all.
 
+- **2026-08-27** · `contested` · grade `measured`
+  - evidence: the dl round-1 exchange §1(a), read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Altered. The source reads "This is the phenomenon your project is actually about, and it is a property of the degree distribution, not of the model." This entry renders it "**This is a property of the degree distribution…**", which repoints the pronoun: in the source "it" refers to the phenomenon, here "This" attaches to the size distribution itself. The stitch also drops "on your chosen graph". Since lab/005 contests precisely whether the governing quantity is a property of the aggregator, the referent is load-bearing and the entry is contested against a sentence the source did not write.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

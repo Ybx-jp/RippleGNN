@@ -28,6 +28,11 @@ The pre-registration protocol
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing and already acted on.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: `experiments/README.md`, `CLAUDE.md`, and commit `3839e88`, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: No named source contains the quoted sentence. `experiments/README.md`:118 says "The remote's record of when it received the commit is"; commit `3839e88` is titled "The push timestamps a preregistration, not the local commit date". The claim is correct and well supported by all three; the quotation marks are not.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

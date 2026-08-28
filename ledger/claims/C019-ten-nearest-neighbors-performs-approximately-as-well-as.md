@@ -28,6 +28,11 @@ The choice of K in every rank metric
   - read-in: `lab/claims-inventory-draft.md`
   - note: lab/002 used K=20 and nothing has changed it.
 
+- **2026-08-27** · `contested` · grade `measured`
+  - evidence: the eval-meth round-2 exchange §0, read in full; and `lab/002`
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Two defects. The elision drops "of nearest neighbors (e.g., 100)", which is the comparator that gives the claim its content, and the upstream source is unidentified on both sides — the expert named no paper, and context places it in word-embedding stability, not graphs. Separately, this entry's earlier verdict cites `lab/002` as corroborating evidence, but lab/002 used K=20, which is what the claim argues against; the cited evidence is the target of the claim, not support for it.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

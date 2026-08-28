@@ -28,6 +28,11 @@ dl's R1 design (influence mass computable with sparse mat-vecs, no model); "pred
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: the dl round-2 exchange §2, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Third-party result, attributed here to the expert who relayed it. The expert named it: "That is Theorem 1 of JKNet." The quotation also drops `∈V` from `x∈V` with no elision, and stops before the condition "on the self-loop-augmented graph", so the theorem reads as holding on the raw graph.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

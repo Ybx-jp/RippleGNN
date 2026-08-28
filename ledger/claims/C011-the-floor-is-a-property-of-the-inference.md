@@ -28,6 +28,11 @@ The design rule to prefer full-graph inference; dl's "the fix is not to measure 
   - read-in: `lab/claims-inventory-draft.md`
   - note: Untested against a trained model or a heavy-tailed graph — lab/002 lists both as threats.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: `lab/002-the-noise-floor-is-a-rank-metric-problem.md`, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Quotation verified verbatim against the source this entry names, allowing only markdown emphasis and sentence-case. No words added, dropped or reordered, and no unmarked elision.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

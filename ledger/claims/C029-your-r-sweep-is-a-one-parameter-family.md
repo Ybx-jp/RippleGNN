@@ -28,6 +28,11 @@ The novelty withdrawal; the "replication-plus-transfer" positioning; the decisio
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing as an inference. Nothing independent has tested it.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: the dl round-2 exchange §1, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Verbatim, but the disclaimer that immediately follows is dropped: "(My inference from their argument; they never state it as a refresh radius.)" Stored without it, the entry reads as a literature fact about GNNAutoScale's Lemma 1 rather than as a mapping the expert constructed. The expert holds Lemma 1's per-layer form verbatim; it recorded the L-layer (Theorem 2) form as mangled and asked for it to be re-fed, so nothing here extends to the L-layer bound.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

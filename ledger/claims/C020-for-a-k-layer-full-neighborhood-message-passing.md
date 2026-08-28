@@ -28,6 +28,11 @@ locator:
   - read-in: `lab/claims-inventory-draft.md`
   - note: Accepted without independent verification on this box. It is scoped to *full-neighborhood deterministic* aggregation and is **false under sampling** — dl says so in the same section ("with sampling turned on, 'exact' stops existing"), but the reframe is carried forward without the scope restriction attached. See P10.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: the dl round-1 exchange §1, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Verbatim, including emphasis. Two things the entry does not carry: the antecedent of "this" is `MANIFEST.md`'s phrase "when local refresh ceases to approximate global recomputation", without which the sentence is unintelligible; and the expert disclaimed novelty for it — "it is folklore that follows immediately from the definition of k-layer message passing… Do not claim novelty anywhere near it." It follows from GraphSAGE's Algorithm 2 and was never measured there.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

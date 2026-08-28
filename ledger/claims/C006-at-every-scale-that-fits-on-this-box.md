@@ -31,6 +31,11 @@ Every rank-survival metric in the project; the removal of ANN recall error as a 
   - read-in: `lab/claims-inventory-draft.md`
   - note: **Under-examined.** Measured only to 250k. Reddit-at-64 has 232,965 nodes, so the chosen operating point sits at the measured edge, and the primary metric needs a kNN pass *per episode per arm*. See P8.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: `lab/001-full-recompute-is-a-memory-wall-not-a-time-wall.md`, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Quotation verified verbatim against the source this entry names, allowing only markdown emphasis and sentence-case. No words added, dropped or reordered, and no unmarked elision.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

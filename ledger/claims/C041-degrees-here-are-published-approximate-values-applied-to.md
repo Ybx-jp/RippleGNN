@@ -28,6 +28,11 @@ The entire admissibility band (B3) and both dataset refutations
   - read-in: `lab/claims-inventory-draft.md`
   - note: Untested. The whole dataset ruling rests on synthetic uniform graphs standing in for heavy-tailed real ones. See P7.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: `lab/004`:90-93, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Unmarked truncation. The source sentence continues "…the timings will move somewhat with real degree distributions, since a heavy tail changes the gather pattern." This entry ends it at "somewhat" with a full stop and no elision, dropping the reason. The emphasis inside the quotation is this entry's, not the source's.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

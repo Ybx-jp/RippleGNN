@@ -28,6 +28,11 @@ The defensibility of restricting k; pre-empts "why not k=8" in the write-up
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing. Load-bearing on the write-up rather than on any measurement.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: the dl round-2 exchange §2, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Mixed authorship inside one pair of quotation marks. The expert's own quotation marks cover only "grows exponentially with r; for example, even d = 512 can empirically fit r = 7 at most"; this entry pulls the expert's lead-in words inside the quotation and deletes "for example," with no elision, turning an illustrative instance into a general statement. The result is Alon & Yahav (2006.05205) on over-squashing — hidden dimension against problem radius. It is not a hyperbolic-embedding dimension bound; no hyperbolic material appears in the exchange. The second quotation, "Real models are shallow because deep ones do not work", is verbatim and is genuinely the expert's own.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

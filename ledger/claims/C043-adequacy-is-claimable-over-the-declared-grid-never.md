@@ -33,6 +33,11 @@ The adequacy argument for the whole project
   - read-in: primary source located by literature search; the earlier verdict's chain ended at `lab/claims-inventory-draft.md`.
   - note: Provenance repair, not new evidence, and it covers only part of the statement. The source's criterion is that each *source input* associates with at least k mutually different *metamorphic relations*; this entry transposes that onto mutation types and probes. Both `k=3` and the requirement that the k probes be "drawn from different estimand families" are this project's instantiation — the source leaves k general and asks only that the relations differ. Still wired to nothing in the repo: no document names the grid, the coverage criterion, or the closed mutation taxonomy.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: the eval-meth round-2 exchange §4, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Both quotations are verbatim. **This corrects the earlier verdict of 2026-08-27 on this entry, which was wrong.** That verdict said `k=3` and "drawn from different estimand families" are this project's instantiation; they are the expert's, offered in round 2 — it wrote "Your instantiation: each mutation type must associate with at least k qualified probes drawn from different estimand families", and scoped k to budget: "At this budget k=3 is affordable — rank survival, downstream churn, task quality." The expert flagged the transposition itself and quoted the source's original form. Two conditions are dropped and both matter: "The criterion transfers; its empirical validation does not" — the source validated across seven programs and 68,000 relations, against one model here — and the anti-triviality guard, "Three probes that all measure the same thing satisfy k=3 and establish nothing".
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

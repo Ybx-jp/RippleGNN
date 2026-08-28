@@ -33,6 +33,11 @@ Metric selection for the geometric half of B12
   - read-in: primary source located by literature search; the earlier verdict's chain ended at `lab/claims-inventory-draft.md`.
   - note: Provenance repair, not new evidence. The source scopes the 97% figure to **BERT's last layer**, and pairs it with a probing-accuracy drop from 80% to 63%; this entry's statement drops that qualifier and so is broader than what the source supports. "Use Orthogonal Procrustes instead" is a recommendation derived from the comparison, not a quotation. Still wired to nothing in the repo (P9).
 
+- **2026-08-27** · `contested` · grade `measured`
+  - evidence: the eval-meth round-2 exchange §0 Correction 1, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: **This corrects the earlier verdict of 2026-08-27 on this entry.** That verdict recorded that the primary source scopes the 97% figure to BERT's last layer, and presented it as something the literature search recovered. It was already in the exchange this entry quotes: the expert's own lead-in, immediately outside the quotation marks, reads "on BERT base's last layer, 'CKA requires deleting 97% of principal components…, by which point SST-2 probing accuracy has already dropped substantially from 80% to 63%'". So the scope was not lost upstream and then recovered here — it was stated to this project and dropped when the entry was written. The elision also swallows the 80%→63% clause. Separately, "Use Orthogonal Procrustes distance instead" flattens a three-way ordering: the expert wrote "we conclude PWCCA > Orthogonal Procrustes > CKA" and called PWCCA defensible too. The expert named no paper; the arXiv id came from this ledger's later search.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

@@ -28,6 +28,11 @@ A proposed prioritisation arm in R1/R4
   - read-in: `lab/claims-inventory-draft.md`
   - note: Untested. The absence half should be phrased "not found in the current scan" per `CLAUDE.md`.
 
+- **2026-08-27** · `contested` · grade `measured`
+  - evidence: the dl round-2 exchange §2, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: The elision spans a sentence boundary and deletes the expert's own label. The source reads "**My inference:** negatively-curved edges are exactly the edges whose mutation has the *smallest* reverse-reachable set… That is a testable, curvature-based prioritisation heuristic that costs nothing to compute and that nobody has proposed for refresh." Removing "My inference:" and "That is" turns flagged speculation into a finding. The curvature inputs are third-party (Topping et al., 2111.14522, sign of curvature only); no Ollivier or Forman curvature appears anywhere in the exchange. "nobody has proposed for refresh" is an unqualified absence claim grounded in no stated search — none of the expert's fourteen recorded queries searched it — and it violates the manifest's rule that an absence is phrased "not found in the current scan".
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

@@ -28,6 +28,11 @@ Every metric in the project
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing — but eval-meth R2 §4 adds a caveat the contract does not carry: "Your grid measures whether probes discriminate. It does not measure whether the four estimands carve faithfulness correctly. That question stays open."
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: the eval-meth round-1 exchange §1a, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: The four estimands match, with the source's hedge removed: it wrote "'Faithful' is **at least four** distinct estimands", leaving the decomposition open, and this entry closes it to four. Given that round 2 questions whether these carve faithfulness correctly, the hedge is load-bearing. The second estimand is "Rank/neighbourhood survival" in the source, not "rank survival". The non-collapse argument is narrower than stated here: the source argues it for the two downstream estimands specifically, not for all four.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

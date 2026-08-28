@@ -44,9 +44,14 @@ def quotation_state(text):
     if "## Statement" in text:
         statement = text.split("## Statement", 1)[1].split("## Depends on this", 1)[0]
     carries = '"' in statement
+    # A quotation is also checked when a verdict records the check. The frontmatter is
+    # frozen, so a backfilled entry cannot gain `quotes:` without being superseded, and a
+    # reader that counted only the field would report zero checked however many had
+    # actually been compared against their sources.
+    audited = "quotation audit" in text.split("## Verdicts", 1)[-1]
     value = field(text, "quotes")
     if value is None:
-        return carries, False, problems
+        return carries, audited, problems
     if re.match(r"^unverified:\s*$", value):
         problems.append("`quotes: unverified:` with no reason -- name what has not been "
                         "checked against the source")
@@ -167,9 +172,9 @@ def main():
     print(f"{verified}/{quoting} entries whose statement quotes a source have had that "
           f"quotation checked against it")
     if verified < quoting:
-        print("The rest are unverified, which is the expected state and not a violation: "
-              "the field is inside the frozen region, so an entry gains it on "
-              "supersession, never by a sweep.")
+        print(f"{quoting - verified} unchecked. That is not a violation, but it is not a "
+              "clean bill either: an unchecked quotation is one nobody has compared "
+              "against the source it names.")
     return 1 if failed else 0
 
 

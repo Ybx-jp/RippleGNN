@@ -28,6 +28,11 @@ Any link-prediction eval
   - read-in: `lab/claims-inventory-draft.md`
   - note: It *did* land in the `eval-methodology` scope (`ripple-measurement` feed) but not in `dl`'s. dl states it as absent; the operator holds it in the other scope. **A cross-scope inconsistency that neither expert can see.**
 
+- **2026-08-27** · `contested` · grade `measured`
+  - evidence: the dl round-1 exchange §5 G3 and §6 T6, and the round-2 exchange §6, all read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: The first fragment is fabricated. "Poursafaei et al. did not land" appears in neither round in any form; round 2's actual text is "Poursafaei et al. on dynamic-link-prediction evaluation did not land **in anything I retrieved**" — an absence from one retrieval, rendered here as an absence. The second half is not verbatim either: the source is conditional, "If your evaluation ends up resting on dynamic link prediction, get that paper before you write the eval script"; the condition is deleted and "a single" inserted. "Direct threat" is round 2 reporting what round 1 said. Everything the expert says about this paper is explicitly ungrounded background — "I am not going to recite paper titles from background as though they were retrieved claims" — and it asked to be fed the paper. Also dropped: "none of the top three experiments requires a link-prediction metric at all", which is why the expert did not treat it as urgent.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

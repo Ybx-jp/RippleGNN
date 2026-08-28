@@ -31,6 +31,11 @@ Dataset tier rulings in both R2 tickets; the "full recompute becomes impossible"
   - read-in: `lab/claims-inventory-draft.md`
   - note: **Superseded by lab/004** (governing quantity is `edges × hidden_dim`; at mean degree 99 the ceiling arrives at 233k nodes). lab/001 carries the supersession banner. **The public README does not** — see P4.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: `README.md`, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Quotation verified verbatim against the source this entry names, allowing only markdown emphasis and sentence-case. No words added, dropped or reordered, and no unmarked elision.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

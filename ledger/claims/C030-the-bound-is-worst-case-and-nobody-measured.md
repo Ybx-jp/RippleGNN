@@ -28,6 +28,11 @@ dl's R2 — the project's proposed headline
   - read-in: `lab/claims-inventory-draft.md`
   - note: An absence claim is the weakest kind and this one carries the headline. Should be ledgered as "not found in the current scan". Further weakened by B23: for a mean aggregator there may be no degree-dependence to characterise.
 
+- **2026-08-27** · `contested` · grade `measured`
+  - evidence: the dl round-2 exchange §1, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: The elision removes the sentence that bounds the absence claim: "Neither paper reports realised error against predicted error" — meaning GNNAutoScale and VR-GCN specifically. Cut, "nobody measured its tightness" and "unoccupied" read as claims about the whole literature, grounded in nothing. Two papers read, no search stated. Restate as not reported in those two papers, or ground the absence in a search on the record.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

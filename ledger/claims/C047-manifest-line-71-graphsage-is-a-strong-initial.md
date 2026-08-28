@@ -28,6 +28,11 @@ Was believed to depend on nothing
   - read-in: `lab/claims-inventory-draft.md`
   - note: **This turns out to be load-bearing and nobody noticed.** lab/005 shows the aggregator choice (mean vs sum) determines whether the error model has a degree term at all — i.e. whether A2, A4, B21 and dl's entire R1 are asking the right question. A "research decision" deferred as low-stakes is in fact the decision the error model rests on. See P6.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: `MANIFEST.md`, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Quotation verified verbatim against the source this entry names, allowing only markdown emphasis and sentence-case. No words added, dropped or reordered, and no unmarked elision.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

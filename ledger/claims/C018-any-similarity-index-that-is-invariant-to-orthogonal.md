@@ -33,6 +33,11 @@ The pre-registration prohibition on whitening / fitted general-linear alignment
   - read-in: primary source located by literature search; the earlier verdict's chain ended at `lab/claims-inventory-draft.md`.
   - note: Provenance repair, not new evidence. Only the first half of the statement is the source's: the proposition is a proof about orthogonalizing columns via QR. The consequence drawn here — "a QR/whitening step before comparison silently destroys your measurement" — is this project's inference from it and carries no separate source. Still wired to nothing in the repo.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: the eval-meth round-2 exchange §0, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Both quotations hold. The first drops "of the input" from "orthogonalizing the columns of the input" with no elision mark, which changes nothing. The second, "a QR/whitening step before comparison silently destroys your measurement", is verbatim and is genuinely the expert's own inference rather than the paper's — which this entry's earlier verdict already recorded correctly. Of the entries audited, this is the one whose split between quotation and gloss was right when written. The expert named no paper; the arXiv id came from this ledger's later search. The full-rank companion condition the proposition rests on is not carried here.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

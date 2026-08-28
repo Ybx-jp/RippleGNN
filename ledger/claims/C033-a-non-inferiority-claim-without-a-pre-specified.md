@@ -28,6 +28,11 @@ The margin-with-derivation requirement in every pre-registration
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing.
 
+- **2026-08-27** · `contested` · grade `measured`
+  - evidence: the eval-meth round-1 exchange §1c, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: The quoted sentence does not exist. "Unfalsifiable" occurs once in the whole exchange, about a different subject ("a cost claim not recorded at the time is unfalsifiable afterward"). §1c's nearest actual sentence is "If you write a bare 'within 1% AUC,' you have joined the 57.9%." The 57.9% (158 of 273 published margins with the definition method unreported) is verbatim-faithful but is a third-party finding the expert relayed, not its own measurement, and the expert warned that its citations there "are all clinical" and asked for the ML-transferable form as procurement. The expert named no author or title, so the identifier drops and the description stays.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

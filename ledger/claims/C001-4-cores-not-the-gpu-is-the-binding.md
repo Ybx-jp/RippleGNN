@@ -28,6 +28,11 @@ Propagated into *both* round-1 answers. dl built probe L2 to "prove it with a pr
   - read-in: `lab/claims-inventory-draft.md`
   - note: **Refuted** by lab/001. Corrected in both documents. The downstream contamination of two consultations is not itself ledgered anywhere.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: the named sources themselves — `CLAUDE.md` and the public `README.md`, every committed revision of each
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: The quoted sentence occurs in no committed revision of either named document. `source:` says "Former `CLAUDE.md`", and CLAUDE.md does record that an earlier version asserted cores-binding, so a former assertion existed — but not in these words, and the wording is recoverable only from the retrospective inventory. The claim is `refuted` on its merits already; what this adds is that its quotation marks were never earned.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

@@ -31,6 +31,11 @@ The admissible band (5M–15M edges at 128-dim); the choice of Reddit-at-64; the
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing. Caveat B41.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: `lab/004`:41, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Not a quotation. lab/004:41 reads "Ceiling between 15M and 20M edges, scaling linearly at ~0.51 GiB per million edges at 128-dim." This entry reverses the clause order and joins the halves with a semicolon that is not in the source, inside quotation marks and with no elision mark. Both numbers are right; the sentence is a reconstruction.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

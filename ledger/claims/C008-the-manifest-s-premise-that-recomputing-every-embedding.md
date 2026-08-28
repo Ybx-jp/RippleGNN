@@ -28,6 +28,11 @@ The existence of the project
   - read-in: `lab/claims-inventory-draft.md`
   - note: **Substantially narrowed.** It survives only as memory-impossibility (B7) and only inside a band of roughly 5M–15M edges at 128-dim (B3). This is the single most load-bearing claim in the repo and its support is one afternoon of synthetic probes.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: `MANIFEST.md`, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Quotation verified verbatim against the source this entry names, allowing only markdown emphasis and sentence-case. No words added, dropped or reordered, and no unmarked elision.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

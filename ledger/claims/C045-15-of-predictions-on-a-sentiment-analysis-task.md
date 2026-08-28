@@ -33,6 +33,11 @@ The interpretability of any downstream-churn result
   - read-in: primary source located by literature search; the earlier verdict's chain ended at `lab/claims-inventory-draft.md`.
   - note: Provenance repair, not new evidence. The source measures word embeddings and bag-of-words sentiment classifiers (SST-2, MR, Subj, MPQA), not graph embeddings — the transfer to this project's setting is an assumption, not a finding. The second half of the statement, that full-recompute-vs-full-recompute churn is the denominator for every churn number, is this project's methodological consequence and carries no separate source. Still wired to nothing in the repo.
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: the eval-meth round-2 exchange §1/R3, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Faithful elision, and this entry is the one case in the audit where the ledger is more careful than its source. The expert supplied the sentence with no paper, no authors and no domain; the ledger's later verdict recovered the paper and recorded that the source measures word embeddings and bag-of-words sentiment classifiers, marking the transfer to graph embeddings as an assumption. No correction needed.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

@@ -28,6 +28,11 @@ The unit-of-analysis rule; the dataset-size reasoning
   - read-in: `lab/claims-inventory-draft.md`
   - note: Superseded by a split, not refuted. The statement is a conjunction whose halves resolved differently: the episode-count half stands, the graph-size half fell. Replaced by C051 and C052. Marking the whole entry refuted would kill a claim its own author preserved -- the same retired-by-split error this ledger records against P001.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: `experiments/README.md` at commit `a758410`, where the quoted text is present verbatim
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: The quotation is faithful to the source as it stood; the source has since been rewritten, which is why `C051` and `C052` supersede this entry. Recorded so the pointer is not read as broken: the text is recoverable at `a758410`, not at HEAD.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

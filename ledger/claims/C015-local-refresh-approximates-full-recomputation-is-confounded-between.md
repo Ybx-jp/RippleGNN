@@ -28,6 +28,11 @@ The destructive-positive-control requirement
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing; the analogy is explicit and the expert labelled it as such.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: the eval-meth round-1 exchange §3b, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Paraphrase presented as quotation. The source reads "'local refresh ≈ full recompute' is confounded between *locality genuinely holds* and *the mutations were too small to move anything*." Meaning survives; the words are not the source's. The dropped next sentence — "Your instrument as described cannot separate them" — is what licenses the positive control this entry is said to support.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

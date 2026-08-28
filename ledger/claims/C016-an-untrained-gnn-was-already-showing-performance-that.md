@@ -28,6 +28,11 @@ The untrained-weights control arm
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing. Note the irony ledgered nowhere: lab/002 and lab/005 both *ran on* untrained weights, i.e. the control condition was used as the measurement condition.
 
+- **2026-08-27** · `open` · grade `measured`
+  - evidence: the dl round-1 exchange §6 trap T1, read in full
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Verbatim, but the speaker is misidentified and a condition is lost. The expert was quoting a source in its own corpus, not asserting this; it named no author or title, so the primary source is unidentified and cannot be invented. The sentence continues "in settings where node features are available" — a real restriction this entry's quotation stops just short of. `source:` also names `experiments/README.md`, which contains no such sentence in any revision.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing

@@ -31,6 +31,11 @@ The reframing of the cost axis from latency to residency; dl's R3; eval-meth's R
   - read-in: `lab/claims-inventory-draft.md`
   - note: Standing, and independently predicted by dl in R1 §2 from NBFNet's published wall-clock (lab/003 calls this the convergence-from-two-directions result).
 
+- **2026-08-27** · `corroborated` · grade `measured`
+  - evidence: `CLAUDE.md`, compared directly against this statement
+  - read-in: direct text comparison, 2026-08-27 quotation audit
+  - note: Quotation verified verbatim against the source this entry names, allowing only markdown emphasis and sentence-case. No words added, dropped or reordered, and no unmarked elision.
+
 ## References
 
 Where this claim is restated outside the ledger. Appended at write time; the referencing
