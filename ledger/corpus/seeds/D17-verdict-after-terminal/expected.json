@@ -1,0 +1,12 @@
+{
+  "class": "verdict after a terminal status",
+  "known_good": false,
+  "expect": [
+    {
+      "checker": "validate",
+      "outcome": "fail",
+      "where": "A0001 verdict 2",
+      "why": "retracted is terminal; no verdict may follow it"
+    }
+  ]
+}

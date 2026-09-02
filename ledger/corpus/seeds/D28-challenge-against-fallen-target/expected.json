@@ -1,0 +1,18 @@
+{
+  "class": "challenge against a fallen target",
+  "known_good": false,
+  "expect": [
+    {
+      "checker": "references",
+      "outcome": "fail",
+      "where": "A0004 Grounds",
+      "why": "a challenges act needs an open, corroborated, or contested target; A0003 is retracted, so the only legal act is cites-as-fallen"
+    },
+    {
+      "checker": "propagate",
+      "outcome": "fail",
+      "where": "A0004 Grounds",
+      "why": "propagate.py appends nothing to a fallen target — a terminal status takes no further verdict — and reports the act as illegal instead"
+    }
+  ]
+}

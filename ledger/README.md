@@ -24,3 +24,10 @@ Two checkers remain live and guard the archive:
   in different words is invisible to it and is on the author to avoid.
 
 Both exit non-zero on violation and run in the pre-push verification set.
+
+The replacement apparatus is being built test-first. `corpus/` is its proof bar: a
+red-team corpus of seeds in the new schema — one or more for every defect class the
+audit found, plus known-good seeds for every rule — with committed expected outcomes
+the four new checkers must reproduce before anything in the new ledger is trusted.
+`corpus/README.md` states the schema the seeds are written against and the runner's
+contract. The checkers do not exist yet; the corpus does.

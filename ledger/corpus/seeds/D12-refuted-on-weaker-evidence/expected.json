@@ -1,0 +1,18 @@
+{
+  "class": "refuted on weaker evidence",
+  "known_good": false,
+  "expect": [
+    {
+      "checker": "validate",
+      "outcome": "flag",
+      "where": "A0001 verdict 1",
+      "why": "a refuted verdict whose evidence grade (argued) is below the entry's grade (measured) is flagged for review, not rejected"
+    },
+    {
+      "checker": "review",
+      "outcome": "flag",
+      "where": "A0001 verdict 1",
+      "why": "an argument alone refuting a measurement is unusual; the correct human move is contested until a measurement exists"
+    }
+  ]
+}

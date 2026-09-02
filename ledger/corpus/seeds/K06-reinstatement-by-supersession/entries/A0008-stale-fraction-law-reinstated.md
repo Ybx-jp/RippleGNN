@@ -1,0 +1,50 @@
+---
+id: A0008-stale-fraction-law-reinstated
+kind: claim
+stated: 2026-09-02T11:00:00-07:00
+author: main
+grade: measured
+supersedes: A0007-stale-fraction-law
+verbatim_sha: 958287710bc8298a4dd355693061da7b28c3730b21f57a06e7509c121e893e38
+---
+
+## Assertion
+
+Under mean aggregation, per-neighbour staleness error at a node is governed by the stale
+fraction of its neighbourhood, not the stale count; at fixed fraction it is degree-
+invariant.
+
+## Scope
+
+metric: centre-node output L2 error under fixed-magnitude neighbour perturbation
+cohort: star graphs, one SAGEConv layer, 16-dim, eval mode, untrained weights
+condition: single layer; uniform perturbation 0.1; stale set uniform-random
+
+## Grounds
+
+- lab: ledger/corpus/fixtures/lab-005.md § "Observation" @corpus
+- entry: A0007-stale-fraction-law · cites-as-fallen
+- lab: ledger/corpus/fixtures/lab-007.md § "Observation" @corpus
+
+## Warrant
+
+Mean aggregation weights each neighbour by 1/deg, so a fixed perturbation on a fraction
+f of neighbours contributes f times the per-neighbour effect regardless of degree. The
+sweep confirms the mechanism to three decimals, so the direction is structural. Fixture
+lab 007's degree-growing error is under sum aggregation, which is outside the cohort; it
+does not bear on the mean-aggregation claim and is cited as the counter-example that was
+misapplied.
+
+## Backing
+
+- source: fx-paper-a · §1
+  speaker: fixture paper A authors
+  quote: "Under mean aggregation the per-neighbour contribution is scaled by 1/deg, so the error induced by a stale fraction f of the neighbourhood is proportional to f and does not grow with degree."
+
+<!-- APPEND BELOW THIS LINE ONLY -->
+
+## Verdicts
+
+
+## References
+
