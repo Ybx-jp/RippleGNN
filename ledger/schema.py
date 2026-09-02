@@ -2,9 +2,9 @@
 
 One parser, one normalization, one fingerprint, one status derivation, shared by
 validate.py, resolve.py, references.py and propagate.py so that no two checkers can
-disagree about what an entry says. The schema itself is stated in corpus/README.md (the
-parts the red-team seeds depend on) and is proven by corpus/run.py; nothing here is
-trusted beyond what that corpus exercises.
+disagree about what an entry says. The schema itself is stated in full in ledger/README.md,
+restated in corpus/README.md (the parts the red-team seeds depend on), and proven by
+corpus/run.py; nothing here is trusted beyond what that corpus exercises.
 
 This module is imported by the checkers with the ledger directory on sys.path. It has
 no dependencies outside the standard library so the checkers run from a plain

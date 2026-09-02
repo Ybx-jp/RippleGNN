@@ -15,9 +15,9 @@ The rules for this directory:
 
 - **Nothing here is edited**, including the defective entries. Their defects are ground
   truth for testing the replacement apparatus.
-- **No new document may cite or copy an entry here.** `ledger/references.py` enforces
-  the verbatim half of this mechanically; restatements in different words are on the
-  author.
+- **No new document may cite or copy an entry here.** `ledger/archive/references.py`
+  enforces the verbatim half of this mechanically; restatements in different words are
+  on the author.
 - **References recorded before the quarantine stay recorded** in each entry's
   References section. They are history, not endorsements.
 - An entry is carried forward only by re-deriving it into the replacement ledger from

@@ -17,8 +17,15 @@ import sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))  # ledger/archive
 GRADES = ["asserted", "argued", "measured", "controlled", "preregistered"]
-STATUSES = ["open", "corroborated", "contested", "refuted", "superseded",
-            "retracted", "non-comparable"]
+STATUSES = [
+    "open",
+    "corroborated",
+    "contested",
+    "refuted",
+    "superseded",
+    "retracted",
+    "non-comparable",
+]
 FROZEN = "<!-- FROZEN ABOVE."
 
 
@@ -55,8 +62,10 @@ def quotation_state(text):
     if value is None:
         return carries, audited, problems
     if re.match(r"^unverified:\s*$", value):
-        problems.append("`quotes: unverified:` with no reason -- name what has not been "
-                        "checked against the source")
+        problems.append(
+            "`quotes: unverified:` with no reason -- name what has not been "
+            "checked against the source"
+        )
         return carries, False, problems
     if value.startswith("unverified:"):
         return carries, False, problems
@@ -68,14 +77,15 @@ def quotation_state(text):
 def check(path):
     problems = []
     text = io.open(path, encoding="utf-8").read()
-    name = os.path.relpath(path, ROOT)
 
     if not text.startswith("---\n"):
         problems.append("no YAML frontmatter")
         return problems
     if FROZEN not in text:
-        problems.append("missing the FROZEN marker — nothing separates the immutable "
-                        "region from the appendable one")
+        problems.append(
+            "missing the FROZEN marker — nothing separates the immutable "
+            "region from the appendable one"
+        )
     if "## Statement" not in text:
         problems.append("no Statement section")
     if "## Verdicts" not in text:
@@ -126,10 +136,11 @@ def check(path):
     for token in found:
         if token in GRADES or token in STATUSES:
             continue
-    if re.search(r"`(open|corroborated|contested|refuted|superseded|retracted)`",
-                 verdicts) and "grade `" not in verdicts:
-        problems.append("a verdict states a status without the grade of the evidence "
-                        "that moved it")
+    if (
+        re.search(r"`(open|corroborated|contested|refuted|superseded|retracted)`", verdicts)
+        and "grade `" not in verdicts
+    ):
+        problems.append("a verdict states a status without the grade of the evidence that moved it")
 
     # Verdict provenance. `evidence` is what bears on the claim; `read-in` is where it
     # was encountered. Collapsing them is how a citation degrades to nothing across a
@@ -144,16 +155,20 @@ def check(path):
         if not re.match(r"- \*\*\d{4}-\d{2}-\d{2}\*\*", block.strip()):
             continue
         if not re.search(r"^\s+- evidence:\s*\S", block, re.M):
-            problems.append("a verdict carries no `evidence:` -- name what bears on the "
-                            "claim, or record `unresolved:` with a reason")
+            problems.append(
+                "a verdict carries no `evidence:` -- name what bears on the "
+                "claim, or record `unresolved:` with a reason"
+            )
         elif re.search(r"^\s+- evidence:\s*unresolved:\s*$", block, re.M):
             problems.append("a verdict says `unresolved:` with no reason")
     return problems
 
 
 def main():
-    paths = sorted(glob.glob(os.path.join(ROOT, "claims", "*.md"))
-                   + glob.glob(os.path.join(ROOT, "predictions", "*.md")))
+    paths = sorted(
+        glob.glob(os.path.join(ROOT, "claims", "*.md"))
+        + glob.glob(os.path.join(ROOT, "predictions", "*.md"))
+    )
     if not paths:
         print("no entries found")
         return 1
@@ -171,12 +186,16 @@ def main():
             for p in problems:
                 print("   ·", p)
     print(f"\n{len(paths) - failed}/{len(paths)} entries valid")
-    print(f"{verified}/{quoting} entries whose statement quotes a source have had that "
-          f"quotation checked against it")
+    print(
+        f"{verified}/{quoting} entries whose statement quotes a source have had that "
+        f"quotation checked against it"
+    )
     if verified < quoting:
-        print(f"{quoting - verified} unchecked. That is not a violation, but it is not a "
-              "clean bill either: an unchecked quotation is one nobody has compared "
-              "against the source it names.")
+        print(
+            f"{quoting - verified} unchecked. That is not a violation, but it is not a "
+            "clean bill either: an unchecked quotation is one nobody has compared "
+            "against the source it names."
+        )
     return 1 if failed else 0
 
 

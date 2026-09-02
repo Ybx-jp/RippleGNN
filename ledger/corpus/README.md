@@ -78,8 +78,9 @@ The runner's contract, fixed before the runner existed and implemented by `run.p
 
 ## The schema the seeds are written against
 
-What follows is what the seeds depend on, so the corpus is readable on its own; it is
-the schema the checkers implement until `../README.md` carries the full statement. The names are Toulmin's, in Verheij's
+The statement of record is `../README.md`, which carries the schema in full; what
+follows is restated here so the corpus is readable on its own, and a difference between
+the two is a defect in whichever is wrong. The names are Toulmin's, in Verheij's
 (2005) formalization: assertion, grounds, warrant, backing; the three-part split into
 assertion, provenance and publication info is the nanopublication model (Kuhn et al.
 2021); *challenges* is micropublications' relation (Clark, Ciccarese and Goble 2014).

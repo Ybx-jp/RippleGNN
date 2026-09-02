@@ -46,7 +46,11 @@ TREE = os.path.dirname(os.path.dirname(ROOT))
 # The ledger itself is excluded, and so is the inventory it was built from: the
 # inventory is the source of these claims, not a restatement of them.
 PATTERNS = (
-    "*.md", "experiments/*.md", "lab/*.md", "src/**/*.py", "tests/**/*.py",
+    "*.md",
+    "experiments/*.md",
+    "lab/*.md",
+    "src/**/*.py",
+    "tests/**/*.py",
 )
 
 
@@ -54,10 +58,13 @@ def documents():
     paths = []
     for pattern in PATTERNS:
         paths += glob.glob(os.path.join(TREE, pattern), recursive=True)
-    return [p for p in sorted(set(paths))
-            if "/ledger/" not in p.replace(os.sep, "/")
-            and "claims-inventory-draft" not in p
-            and "ledger-grounding-brief" not in p]
+    return [
+        p
+        for p in sorted(set(paths))
+        if "/ledger/" not in p.replace(os.sep, "/")
+        and "claims-inventory-draft" not in p
+        and "ledger-grounding-brief" not in p
+    ]
 
 
 def normalize(text):
@@ -66,8 +73,10 @@ def normalize(text):
 
 
 def entries():
-    for path in sorted(glob.glob(os.path.join(ROOT, "claims", "*.md"))
-                       + glob.glob(os.path.join(ROOT, "predictions", "*.md"))):
+    for path in sorted(
+        glob.glob(os.path.join(ROOT, "claims", "*.md"))
+        + glob.glob(os.path.join(ROOT, "predictions", "*.md"))
+    ):
         text = io.open(path, encoding="utf-8").read()
         fp = re.search(r'^fingerprint:[ \t]*"(.*)"[ \t]*$', text, re.M)
         ident = re.search(r"^id:[ \t]*(.*)$", text, re.M)
@@ -79,8 +88,15 @@ def entries():
         verdicts = text.split("## Verdicts", 1)[1].split("## References", 1)[0]
         status = None
         for token in re.findall(r"`([a-z-]+)`", verdicts):
-            if token in ("open", "corroborated", "contested", "refuted",
-                         "superseded", "retracted", "non-comparable"):
+            if token in (
+                "open",
+                "corroborated",
+                "contested",
+                "refuted",
+                "superseded",
+                "retracted",
+                "non-comparable",
+            ):
                 status = token
         listed = set()
         if "## References" in text:
@@ -130,8 +146,7 @@ def main():
 
     if unlisted:
         print("COPIES FOUND AT LOCATIONS THE ENTRY DOES NOT LIST")
-        print("  (the archive is quarantined -- a new copy of an archived claim "
-              "breaches it)\n")
+        print("  (the archive is quarantined -- a new copy of an archived claim breaches it)\n")
         for ident, rel, status in unlisted:
             print(f"  {rel}\n      restates `{ident}` (status `{status}`)")
         print()
@@ -144,8 +159,10 @@ def main():
 
     if not unlisted and not stale:
         print("No unlisted copies, and no live references to fallen claims.")
-        print("This proves no VERBATIM copy is unaccounted for. It says nothing about "
-              "restatements in different words.")
+        print(
+            "This proves no VERBATIM copy is unaccounted for. It says nothing about "
+            "restatements in different words."
+        )
         return 0
     return 1
 

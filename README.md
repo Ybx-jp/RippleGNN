@@ -62,10 +62,13 @@ faithful, 24 defective. The audit is recorded inside the entries themselves as a
 verdicts — the frozen-statement discipline held, so the defective text and its
 correction sit together on the page — and the archive is closed rather than repaired:
 no new document may cite it, and an entry returns only by being re-derived from its
-primary sources. `ledger/README.md` states the quarantine rules, and
-`ledger/archive/references.py` enforces the verbatim half of them mechanically. A replacement
-apparatus is being designed against the audit's defect classes; no experiment runs
-until it is proven.
+primary sources. `ledger/README.md` states the quarantine rules and the replacement
+schema, which separates a claim from the observation it rests on, the reasoning
+between them, and the verbatim text behind that reasoning, and holds every quotation
+to a contiguous span of the source it names. The checkers that hold entries to the
+schema, and the corpus of seeded defects they are proven against, are published beside
+the entries under `ledger/`. No experiment runs until the first entries are written
+against it.
 
 The research record therefore opens with its own instrument failing its first audit,
 kept in full, which is the honest place for a project about establishing truth to
