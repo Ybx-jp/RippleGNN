@@ -6,6 +6,9 @@ it from a pinned dataset state and a seed.
 
     experiments/
       datasets.jsonl           pinned dataset/mutation-stream registry (committed; the bytes are not)
+      ROSTER.md                one row per open hypothesis in the claims ledger: the entry, its
+                               statement, motivating claims, falsifier and status; a view of the
+                               ledger, checked against it before each commit
       NNN-slug/
         preregistration.md     written first, pushed before the first run, never edited after
         run.py                 regenerates results.json; no other inputs

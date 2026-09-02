@@ -14,7 +14,8 @@ into one blob, so a faithful quote could continue seamlessly into unsourced infe
 and be sealed there by the freeze. The replacement separates the four roles into
 Assertion, Grounds, Warrant and Backing, holds every quotation to its source, and
 derives status from an append-only verdict list. The schema is stated in full below.
-Research stays halted until the first real entries are written against it.
+The first entries were written against it on 2026-09-02, the chain a preregistration
+of the stale-fraction law would draw on; the next preregistration is what earns more.
 
 ## Layout
 
@@ -28,11 +29,12 @@ Research stays halted until the first real entries are written against it.
                           derivation the four checkers share
       validate.py  resolve.py  references.py  propagate.py
                           the four checkers, one job each (below)
-      entries/            the ledger's entries, one file each, `A####-slug.md` — none yet
+      entries/            the ledger's entries, one file each, `A####-slug.md`
       sources.jsonl       the source registry — one row per external source an entry
                           cites: id, type, citation, author surnames where the source
-                          names authors, retrieval date, sha256 of the text. Committed;
-                          the bytes are not — none yet
+                          names authors, retrieval date, sha256 of the text, and the
+                          URL and extraction method that regenerate the bytes. Committed;
+                          the bytes are not
       cache/              the bytes, keyed by sha256; not committed
 
 ## How the rules are held
@@ -153,8 +155,19 @@ or an id), `verbatim_sha`, and optionally `verbatim_change` with a reason.
   malformed whatever it says.
 - *References* lists the documents (not entries) that cite this entry:
   `- <path> · standing | record · <act>`. Entry-to-entry edges are read from Grounds and
-  are not repeated here. The referencing document never names the entry: the link runs
-  one way, so a status lives in exactly one place and no copied id can go stale.
+  are not repeated here. A document cites an entry inline as `(A0007-slug, cites-as-live)`,
+  and the two views are checked against each other both ways, so a status still lives in
+  exactly one place: the act a document declares is held to the entry's current status at
+  every check, and a copied id cannot go stale silently.
+
+**Hypotheses.** A `kind: hypothesis` entry is a prediction whose `resolves_when` is an
+experiment design. It carries at least one `entry:` ground naming the claims motivating
+it, and its Warrant states what would falsify it; the falsifier rule is a heuristic on
+wording, any word beginning `falsif`, stated so a reader knows what is and is not
+caught. Every hypothesis whose status is not terminal has exactly one row in
+`experiments/ROSTER.md`, a hand-maintained view a preregistration author reads: the
+row's first cell cites the entry and its last cell states its status, and the reference
+check holds both to the entry. The roster is not generated, so it is checked.
 
 **The quote grammar.** A `quote:` value is one or more quoted spans separated by `[…]`,
 optionally beginning or ending with `[…]`. Each span must be a contiguous substring of

@@ -1,5 +1,6 @@
 """Every entry under ledger/entries/ is well-formed: schema, verbatim fingerprint,
-grade–grounds consistency, verdict legality, supersession both ways, and — when the
+grade–grounds consistency, a hypothesis's motivating entries and falsifier, verdict
+legality, supersession both ways, and — when the
 ledger is in a git repository — immutability of the region above the APPEND marker and
 append-only verdicts, checked over the whole history so a commit that bypassed the hook
 is caught by the next run anywhere.
@@ -53,6 +54,11 @@ from schema import (  # noqa: E402
 ABSENCE_WORDS = {"nobody", "neither", "first", "novel", "unique", "unprecedented"}
 ABSENCE_PAIRS = (("no", "one"), ("not", "found"))
 NO_FOLLOWERS = {"has", "have", "was", "were", "report", "reports"}
+
+
+# The falsifier rule is a heuristic on the Warrant's wording, stated so a checker author
+# implements what the seeds test: any word beginning `falsif`.
+FALSIFIER_RE = re.compile(r"\bfalsif", re.I)
 
 
 def is_absence_claim(text):
@@ -207,6 +213,19 @@ def check_sections(e):
 
     if not e.sections.get("Warrant", "").strip():
         fail("Warrant", "empty")
+    if e.front.get("kind") == "hypothesis":
+        # A hypothesis is a bet on a design: it names the claims motivating it and says
+        # what would falsify it, or the roster it feeds has nothing to test.
+        if "entry" not in kinds:
+            fail(
+                "Grounds", "a hypothesis names the entries motivating it; there is no entry: ground"
+            )
+        if not FALSIFIER_RE.search(e.sections.get("Warrant", "")):
+            fail(
+                "Warrant",
+                "a hypothesis states what would falsify it; no sentence here says `falsified if`, "
+                "`falsifier` or the like",
+            )
 
     for b in e.backing:
         if not b.source_id or "·" not in b.source:

@@ -67,8 +67,9 @@ schema, which separates a claim from the observation it rests on, the reasoning
 between them, and the verbatim text behind that reasoning, and holds every quotation
 to a contiguous span of the source it names. The checkers that hold entries to the
 schema, and the corpus of seeded defects they are proven against, are published beside
-the entries under `ledger/`. No experiment runs until the first entries are written
-against it.
+the entries under `ledger/`. The first entries, the chain a preregistration of the
+stale-fraction law would draw on, were written against it on 2026-09-02, and the
+hypothesis they end in is the first row of `experiments/ROSTER.md`.
 
 The research record therefore opens with its own instrument failing its first audit,
 kept in full, which is the honest place for a project about establishing truth to

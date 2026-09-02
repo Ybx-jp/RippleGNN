@@ -43,5 +43,3 @@ sweep confirms the mechanism to three decimals, so the direction is structural.
 
 ## References
 
-
-- docs/ROSTER.md · standing · cites-as-live

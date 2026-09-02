@@ -144,6 +144,13 @@ or an id), `verbatim_sha`, and optionally `verbatim_change` with a reason.
   `- <path> · standing | record · <act>`. Entry-to-entry edges are read from Grounds and
   are not repeated here.
 
+**Hypotheses.** A `kind: hypothesis` entry carries at least one `entry:` ground naming the
+claims motivating it, and its Warrant states what would falsify it (heuristic: any word
+beginning `falsif`). Every hypothesis whose status is not terminal has exactly one row in
+a `ROSTER.md` document (`experiments/ROSTER.md` in the tree; `docs/ROSTER.md` in a
+seed): the row's first cell cites the entry and its last cell states its status, and
+`references.py` holds both to the entry.
+
 **The quote grammar.** A `quote:` value is one or more quoted spans separated by `[…]`,
 optionally beginning or ending with `[…]`. Each span must be a contiguous substring of
 the named source, spans appear in source order, and a span that starts or ends inside a
@@ -262,6 +269,9 @@ and only the human record says what is wrong.
 | false retraction | D37 | flag |
 | chain with no empirical base | K14 | review — every checker passes by design |
 | amplification across a citation | D41 | review |
+| hypothesis without a falsifier, or without a motivating entry | D42, K03 | catch |
+| open hypothesis without a roster row | D43, K15 | catch |
+| roster status cell stale | D44 | catch |
 
 Known-good seeds: K01 (a measured claim), K02 (a prediction), K03 (a hypothesis with a
 falsifier), K04 (an absence claim with its search), K05 (a supersession chain), K06
@@ -269,8 +279,9 @@ falsifier), K04 (an absence claim with its search), K05 (a supersession chain), 
 asserted claim on backing alone), K09 (a verdict appended in history), K10 (an
 attribution change declared), K11 (normalization-only differences across a chain), K12
 (a baseline named `no-refresh` in an Assertion), K13 (a consultation quote sharing title
-words with the papers), K14 (a chain with no empirical base). K01–K03 and K09 test the
-schema's own rules and encode no claim from the canon; the others each stand for one.
+words with the papers), K14 (a chain with no empirical base), K15 (a roster consistent
+with its hypothesis). K01–K03, K09 and K15 test the schema's own rules and encode no
+claim from the canon; the others each stand for one.
 
 ## What the corpus encodes from the canon
 

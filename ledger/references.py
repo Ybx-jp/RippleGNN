@@ -14,6 +14,11 @@ cites it. No document may cite an archived `C###`/`P###` id, by prefix alone. A
 document that carries an entry's Assertion verbatim without citing it is reported too:
 that finds copies, and says nothing about restatements in other words.
 
+The hypothesis roster (a ROSTER.md among the documents; experiments/ROSTER.md in the
+tree) is a hand-maintained view of the entries and is checked against them: one row per
+hypothesis whose status is not terminal, the row's first cell citing it and its last
+cell stating its status.
+
 Run:  python3 ledger/references.py
 Exit 1 on any failure.
 Proven against ledger/corpus/ by ledger/corpus/run.py.
@@ -31,6 +36,7 @@ from schema import (  # noqa: E402
     ARCHIVED_ID_RE,
     ARCHIVED_PREFIXES,
     CITATION_RE,
+    TERMINAL,
     Report,
     by_id,
     default_ledger,
@@ -40,6 +46,82 @@ from schema import (  # noqa: E402
     print_reports,
     read_document,
 )
+
+
+ROSTER = "ROSTER.md"
+
+
+def roster_rows(body):
+    """(entry id, act, cells) for each table row whose first cell cites an entry."""
+    rows = []
+    for line in body.splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        m = CITATION_RE.search(cells[0]) if cells else None
+        if m:
+            rows.append((m.group(1), m.group(2), cells))
+    return rows
+
+
+def check_roster(entries, index, status, ledger):
+    """The hypothesis roster is a hand-maintained view of the entries: one row per
+    hypothesis whose status is not terminal, the row's first cell citing it and its
+    last cell stating its status. A row that says something the entry does not, or a
+    hypothesis with no row, is a failure; the roster is not generated, so it is
+    checked."""
+    out = []
+    rows = []  # (doc name, entry id, act, cells)
+    for name, path in ledger.docs:
+        if os.path.basename(name) != ROSTER:
+            continue
+        body = read_document(path)
+        if body is None:
+            continue
+        for ident, act, cells in roster_rows(body):
+            rows.append((name, ident, act, cells))
+            target = index.get(ident)
+            if target is None:
+                continue  # reported as a dangling citation above
+            if target.front.get("kind") != "hypothesis":
+                out.append(
+                    Report(
+                        "fail",
+                        None,
+                        name,
+                        f"row cites {ident} as its hypothesis, but that entry is a "
+                        f"{target.front.get('kind')}",
+                    )
+                )
+            elif cells[-1] != status[ident]:
+                out.append(
+                    Report(
+                        "fail",
+                        None,
+                        name,
+                        f"row for {ident} says `{cells[-1]}`; the entry's status is "
+                        f"`{status[ident]}`",
+                    )
+                )
+    for e in entries:
+        if e.front.get("kind") != "hypothesis" or status[e.id] in TERMINAL:
+            continue
+        mine = [r for r in rows if r[1] == e.id]
+        if not mine:
+            out.append(
+                Report(
+                    "fail",
+                    e.prefix,
+                    "Roster",
+                    f"no row in a {ROSTER} document cites this open hypothesis; the roster "
+                    "has one row per hypothesis that is not terminal",
+                )
+            )
+        elif len(mine) > 1:
+            out.append(
+                Report("fail", e.prefix, "Roster", f"{len(mine)} roster rows cite this hypothesis")
+            )
+    return out
 
 
 def run(ledger):
@@ -130,6 +212,8 @@ def run(ledger):
                         f"carries the Assertion of {e.id} verbatim without citing it",
                     )
                 )
+
+    reports += check_roster(entries, index, status, ledger)
 
     for e in entries:
         for raw, r in e.references:
