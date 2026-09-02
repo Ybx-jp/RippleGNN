@@ -5,7 +5,7 @@ stated: 2026-09-02T11:00:00-07:00
 author: main
 grade: measured
 supersedes: A0007-stale-fraction-law
-verbatim_sha: 958287710bc8298a4dd355693061da7b28c3730b21f57a06e7509c121e893e38
+verbatim_sha: b55f51c5c6ee9273514437393b1c5cdeae2d2b39f7532bc0db7a8dfe5fd41809
 ---
 
 ## Assertion
@@ -24,16 +24,15 @@ condition: single layer; uniform perturbation 0.1; stale set uniform-random
 
 - lab: ledger/corpus/fixtures/lab-005.md § "Observation" @corpus
 - entry: A0007-stale-fraction-law · cites-as-fallen
-- lab: ledger/corpus/fixtures/lab-007.md § "Observation" @corpus
 
 ## Warrant
 
 Mean aggregation weights each neighbour by 1/deg, so a fixed perturbation on a fraction
 f of neighbours contributes f times the per-neighbour effect regardless of degree. The
-sweep confirms the mechanism to three decimals, so the direction is structural. Fixture
-lab 007's degree-growing error is under sum aggregation, which is outside the cohort; it
-does not bear on the mean-aggregation claim and is cited as the counter-example that was
-misapplied.
+sweep confirms the mechanism to three decimals, so the direction is structural. The sum-
+aggregation sweep that refuted A0007 (fixture lab note 007) is outside this cohort and
+does not bear on the mean-aggregation claim; it is not a ground here, and A0007 is cited
+as the entry that misapplied it.
 
 ## Backing
 

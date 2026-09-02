@@ -20,15 +20,16 @@ as such in the commit that makes it.
 
     corpus/
       fixtures/            synthetic sources the seeds quote: two papers, one consultation,
-                           three lab notes. Every fixture says in its first lines that it
+                           five lab notes. Every fixture says in its first lines that it
                            is synthetic; the authors named in them are fictional.
       sources.jsonl        the registry rows for the fixtures — id, type, citation,
-                           retrieval date, sha256 of the bytes, and (only here) the path
-                           of the bytes, because fixtures are committed and real sources
-                           are not
+                           author surnames where the source has named authors, retrieval
+                           date, sha256 of the bytes, and (only here) the path of the
+                           bytes, because fixtures are committed and real sources are not
       seeds/
         K##-slug/          known-good: every checker must pass
-        D##-slug/          defect: the named checker must fail or flag at the named place
+        D##-slug/          defect: the named checker fails or flags at the named place, or
+                           the seed is review-only and every checker passes
           expected.json    class, known_good, and the expectation rows
           entries/         the ledger entries of this seed, as they would sit in ledger/entries/
           docs/            any citing documents the seed needs
@@ -47,9 +48,11 @@ across seeds (most seeds have an `A0001`) and mean nothing outside their seed.
        "why": "the quote drops the parenthetical (cosine, L2) with no elision mark"}]}
 
 `checker` is one of `validate`, `resolve`, `references`, `propagate` — the four programs
-that will live beside this directory — or `review`, which is not a program. `outcome` is
-`pass`, `fail`, `flag`, or `judge`. `where` names an entry and a part of it so a runner
-can match the checker's report to the row. `why` is for the reader.
+that will live beside this directory — or `review`, which is not a program. A checker
+row's `outcome` is `pass`, `fail`, or `flag`; a `review` row's outcome is always `judge`.
+`where` names an entry and one part of it so a runner can match the checker's report to
+the row. `why` describes the outcome for the reader; where it names a mechanism, the
+mechanism is illustrative and the outcome is what binds.
 
 The runner's contract, so it is fixed before the runner exists:
 
@@ -64,7 +67,8 @@ The runner's contract, so it is fixed before the runner exists:
 - `review` rows carry no obligation for the machinery. They record what the correct human
   verdict is once the machinery has made the defect visible, and they exist so a later
   reader can tell a seed the checkers are meant to *catch* from one they are meant to
-  *surface*. The row before a `review` row states the visibility the machinery does owe.
+  *surface*, and both from one that is green by design and owes the reader a warning. A
+  known-good seed may carry a `review` row; its checker rows are still all `pass`.
 - History seeds (`commits/`) are applied as successive commits in a fresh repository, and
   their rows name the commit they apply to. They are the only way to test immutability,
   since immutability is a property of history and not of a file.
@@ -106,7 +110,9 @@ or an id), `verbatim_sha`, and optionally `verbatim_change` with a reason.
   positive pointer. The citation acts are `cites-as-live` (target open or corroborated),
   `cites-as-contested` (target contested), `cites-as-fallen` (any status; the only act
   legal against a fallen target), and `challenges` (target open, corroborated or
-  contested; the citing entry's Warrant names what it attacks).
+  contested; the citing entry's Warrant names what it attacks). A ground is a datum the
+  Warrant uses; an artifact the entry mentions without resting on it is named in the
+  Warrant's prose, or cited `cites-as-fallen` if it is an entry, and is not a ground.
 - *Warrant* states the rule by which the grounds support the assertion. Conditions on the
   rule are Scope lines, not Warrant sentences.
 - *Backing* holds every verbatim quotation, one block per quote: `source:` (a registry
@@ -123,7 +129,13 @@ or an id), `verbatim_sha`, and optionally `verbatim_change` with a reason.
   `· challenges` or `· supersedes` names the entry whose fall, challenge or succession
   moved this one; `defect: <description>` is legal only on a `retracted` verdict and
   names the making-defect. Timestamps are non-decreasing down the file and none is
-  earlier than `stated`.
+  earlier than `stated`. **Who may write a verdict is checked:** `author:` is `main` or
+  `propagation` and nothing else — an expert scope writes none, because a consultation is
+  evidence a verdict points at — and a `propagation` verdict must carry `entry:` evidence
+  with `· fallen` or `· challenges`, since those are the only two things the machinery
+  writes about. An assertion is a proposition made by an agent on an occasion; `author`
+  and `stated` are the agent and the occasion, and a verdict under the wrong agent is
+  malformed whatever it says.
 - *References* lists the documents (not entries) that cite this entry:
   `- <path> · standing | record · <act>`. Entry-to-entry edges are read from Grounds and
   are not repeated here.
@@ -131,17 +143,26 @@ or an id), `verbatim_sha`, and optionally `verbatim_change` with a reason.
 **The quote grammar.** A `quote:` value is one or more quoted spans separated by `[…]`,
 optionally beginning or ending with `[…]`. Each span must be a contiguous substring of
 the named source, spans appear in source order, and a span that starts or ends inside a
-sentence must have the elision mark on that side. Whitespace differences and markdown
-emphasis are ignored; everything else is not.
+sentence must have the elision mark on that side. Comparison is made after the same
+normalization the fingerprint uses (below); anything that survives it must match.
 
-**`verbatim_sha`** is sha256 over: the Scope lines stripped of surrounding whitespace with
-blank lines dropped, joined by newlines; then a blank line; then each `quote:` value with
-its whitespace collapsed to single spaces, in Backing order, joined by newlines. Grounds
-are excluded. `validate.py` recomputes it and a declared value that differs is malformed.
-Across a supersession chain the value must be equal unless the successor declares
-`verbatim_change`. It is a fingerprint over the verbatim record, not an
-integrity key; the integrity key over a whole entry is its git blob at the commit that
-created it, which is what the immutability check diffs against.
+**`verbatim_sha`** is a fingerprint over the verbatim record: sha256 over the Scope
+lines, then a blank line, then one line per Backing block, with the blocks sorted. A
+Scope line or a Backing block is normalized before hashing: Unicode NFC, the markdown
+emphasis markers `*` and backtick removed, whitespace collapsed to single spaces, blank
+Scope lines dropped. A Backing block's line is its `source:`, `speaker:` and `quote:`
+values joined by ` | ` — attribution is part of the verbatim record, so a quote moved to
+a different source or a different speaker changes the fingerprint. Grounds are excluded.
+`validate.py` recomputes the value and a declared value that differs is malformed. Across
+a supersession chain the value must be equal unless the successor declares
+`verbatim_change` with a reason; reordering Backing blocks, changing emphasis or
+whitespace, or writing an accented word in another normalization form changes nothing.
+The resolver applies the same normalization when it matches spans, so the two never
+disagree about what a change is. The fingerprint is not an integrity key; the integrity
+key over a whole entry is its git blob at the commit that created it, which is what the
+immutability check diffs against. Its job is the inverse of the fingerprint in Kuhn et
+al. (2017): there, unequal fingerprints trigger a new version; here, equal fingerprints
+are what a chain must preserve.
 
 **Statuses** are derived from the last verdict, never stored: `open` (no verdicts),
 `corroborated`, `contested`, `refuted`, `superseded`, `retracted`, `non-comparable`. The
@@ -149,56 +170,81 @@ last four are terminal, with one exception: `refuted` or `non-comparable` may be
 followed by exactly one `superseded`, because reinstatement is supersession. A
 corroborating verdict must point at a ground the entry does not already cite.
 `non-comparable` is legal only at `measured` and above. `retracted` here means a defect
-in the making, not obsolescence without a successor as in nanopublication usage.
+in the making, not obsolescence without a successor as in nanopublication usage. On a
+retracted entry `resolve.py` does not re-report the defective quote; it checks that the
+`defect:` the verdict states reproduces, and flags a retraction whose stated defect does
+not — a retraction for a defect that is not there is itself the defective act.
+Supersession is a chain, not a tree: an entry carries one `superseded` verdict, so a
+second successor is malformed, and a `superseded` verdict naming a successor that does
+not declare `supersedes:` is malformed too.
 
 **Propagation** is the one place machinery writes into an entry. When an entry cited
 `cites-as-live` falls, or an entry is named by a `challenges` act, `propagate.py` appends
 a `contested` verdict, `author: propagation`, to the dependent or challenged entry and
 exits non-zero so the flag is seen. A `challenges` act whose target lacks that verdict,
-or whose target is fallen, is a failure. A dependent flagged because its live-cited
-ground fell cannot return to `corroborated`: its Grounds are immutable and still cite the
-fallen entry, so `references.py` keeps failing until it is superseded.
+or whose target is fallen, is a failure, and so is a `propagation` verdict whose named
+cause does not exist. A dependent flagged because its live-cited ground fell cannot
+return to `corroborated`: its Grounds are immutable and still cite the fallen entry, so
+`references.py` keeps failing until it is superseded. A document that cites an entry
+`cites-as-live` after the entry is superseded or refuted fails the same way; the filter
+a reader must apply every time is applied for them at check time.
 
 **Two rules the seeds assume are heuristics**, and they are stated here so a checker
 author implements what the seeds test rather than something stronger:
 
 - An Assertion is read as an absence claim, and must carry a `search:` ground, when it
-  matches a negated-existence pattern: `nobody`, `no one`, `not found`, `neither`, or
-  `no <words> (has|have|was|were|report|reports)`. A false positive costs a `search:`
-  line; a false negative is the archived defect.
+  contains one of the standalone words `nobody`, `no one`, `neither`, `first`, `novel`,
+  `unique`, `unprecedented`, the phrase `not found`, or the standalone word `no` followed
+  within the sentence by `has`, `have`, `was`, `were`, `report` or `reports`. Words are
+  whitespace-delimited: `no-refresh` is a baseline's name and contains no `no`. A
+  priority word is an absence claim about everyone else, which is why the project's
+  conventions forbid it without a search on record. A false positive costs a `search:`
+  line; a false negative is the archived defect. Known miss: an absence stated without any
+  of these tokens (`lacks`, `remains open`, `unreported`).
 - A quote from a consultation-type source is flagged as relayed third-party material when
-  the source sentence containing the span also names another registry row (a surname or a
-  title word from its `citation`) or contains `et al.`. This is a flag for review, not a
-  failure; the failure case is a consultation source whose `speaker:` is not its expert.
+  the source sentence containing the span also contains a surname from another registry
+  row's `authors` or the token `et al.`. Title words are not used: a consultation about
+  mean aggregation would name every paper about mean aggregation. This is a flag for
+  review, not a failure; the failure case is a consultation source whose `speaker:` is
+  not its expert. Known miss: a relay by pronoun in a sentence that names nobody.
 
 ## Coverage
 
-Each archived defect class has at least one seed. The right column is the honest limit:
-`catch` means the checker fails; `surface` means it flags and a human judges.
+Each archived defect class has at least one seed, and so does each rule the schema's own
+structure creates. The right column is the honest limit: `catch` means the checker
+fails; `flag` means it reports and a human judges; `review` means the machinery passes
+and only the human record says what is wrong.
 
 | class | seeds | machinery owes |
 |---|---|---|
 | unmarked deletion | D01 | catch (span not contiguous) |
 | paraphrase inside quotation marks | D02 | catch |
-| text no source contains, including reversal | D03 | catch |
+| text no source contains | D03 A0001 | catch |
+| distortion by reversal | D03 A0002 | catch as unresolvable; the class is review |
 | right quote, wrong source | D04 | catch |
 | dead pointer | D05 | catch, loudly — a cache or registry miss never passes silently |
 | mid-sentence cut without `[…]` | D06 | catch |
 | fusion of quote and inference | D07 | catch (no quotation marks in Assertion) |
-| grade inversion | D08 | catch (grade–grounds lookup, both directions) |
-| absence-scope widening | D09, K04 | catch the missing `search:`; the widening itself is review |
-| speaker misidentified | D10 | catch the structural case; surface the relayed case |
-| load-bearing elision | D11 | surface — the elision is marked and visible; load is judged |
-| refuted on weaker evidence | D12 | surface |
-| undercut recorded as refuted | D13 | review only — the corpus records the correct verdict |
+| grade inversion | D08 | catch the pointer-kind mismatch, both directions; a fixture note that calls its own numbers typed is not seen |
+| absence-scope widening | D09, D38, K04 | catch the missing `search:`, including on a priority word; the widening itself is review |
+| speaker misidentified | D10, K13, D40 | catch the structural case; flag the relayed case; the name-free relay is a known miss |
+| load-bearing elision | D11 | review — the elision is marked and visible; the machinery passes |
+| refuted on weaker evidence | D12 | flag |
+| undercut recorded as refuted | D13 | review |
+| datum attack recorded as refuted | D33 | review |
 | challenge without its flag | D14, K07 | catch |
 | act incompatible with target status | D15, D16 | catch |
+| document cites a superseded entry as live | D32 | catch |
 | verdict after a terminal status | D17, K06 | catch |
 | malformed or non-monotonic timestamps | D18 | catch |
 | prediction without credence or resolves_when; credence out of range | D19, K02, K03 | catch |
 | id width, archived prefix, archived-id citation | D20 | catch |
 | verbatim drift across a chain | D21, K05 | catch |
+| attribution changed across a chain | D39, K10 | catch without a declaration; pass with one |
+| normalization-only differences across a chain | K11 | pass |
 | supersession without the predecessor's final verdict | D22 | catch |
+| predecessor names an undeclared successor | D35 | catch |
+| supersession fork | D34 | catch |
 | frozen region edited after creation | D23, K09 | catch (history) |
 | verdict line modified | D24 | catch (history) |
 | corroborated by its own grounds | D25 | catch |
@@ -207,11 +253,52 @@ Each archived defect class has at least one seed. The right column is the honest
 | challenge against a fallen target | D28 | catch |
 | measured claim with an incomplete Scope | D29 | catch |
 | declared `verbatim_sha` does not match the content | D30 | catch |
+| verdict author not who could have written it | D31 | catch |
+| orphan propagation | D36 | catch |
+| false retraction | D37 | flag |
+| chain with no empirical base | K14 | review — every checker passes by design |
+| amplification across a citation | D41 | review |
 
-Known-good seeds K01–K09 cover: a measured claim, a prediction, a hypothesis with a
-falsifier, an absence claim with its search, a supersession chain, reinstatement by
-supersession, a challenge with its propagated flag, an asserted claim on backing alone,
-and a verdict appended in history.
+Known-good seeds: K01 (a measured claim), K02 (a prediction), K03 (a hypothesis with a
+falsifier), K04 (an absence claim with its search), K05 (a supersession chain), K06
+(reinstatement by supersession), K07 (a challenge with its propagated flag), K08 (an
+asserted claim on backing alone), K09 (a verdict appended in history), K10 (an
+attribution change declared), K11 (normalization-only differences across a chain), K12
+(a baseline named `no-refresh` in an Assertion), K13 (a consultation quote sharing title
+words with the papers), K14 (a chain with no empirical base). K01–K03 and K09 test the
+schema's own rules and encode no claim from the canon; the others each stand for one.
+
+## What the corpus encodes from the canon
+
+The seeds were checked against the sources the schema was designed from. The claims the
+corpus is meant to encode, and where each lives:
+
+- A warrant that does not adequately represent, distorts, or fabricates its backing calls
+  the claim into question (Clark, Ciccarese and Goble 2014, relaying Greenberg): D01, D06
+  and D11 are the first, D02 and D03 A0002 the second, D03 A0001 the third; D04 and D05
+  are the cited reference that resolves to the wrong document or to none.
+- An attack on the connection between data and claim leaves the claim neither justified
+  nor defeated (Verheij 2005, following Pollock): D13. An attack on a datum does the
+  same: D33. An attack on the applicability of the warrant is an attack on Scope: K07 is
+  one, recorded as a challenge.
+- Evaluation is nonmonotonic and a defeated claim can be reinstated (Verheij 2005): K06.
+- A challenge is recorded in the challenger's object (Clark et al. 2014): K07, D14, D28.
+- A new version declares what it supersedes and the previous version stays untouched
+  (Kuhn et al. 2021): K05, D21, D22, D23, D24, D34, D35.
+- A grade is an evidence type and carries no quality; expert opinion is not an evidence
+  category (Giglio et al. 2019; Guyatt et al. 2008): D08, D12, K08.
+- An assertion is identified by its proposition, its agent and its occasion (Brush,
+  Shefchek and Haendel 2016): D18, D31.
+- A reader must filter superseded and retracted records every time (Kuhn et al. 2021):
+  D15, D16, D27, D32.
+- A citation lineage may not resolve to empirical evidence, and a qualifier can be
+  dropped across a citation (Clark et al. 2014, relaying Greenberg): K14, D41.
+
+Not encoded, by decision and disclosed: retraction as a separate object (here it is a
+verdict), and challenge discoverability as a service function (here it is a propagated
+verdict on the challenged entry). Not found in the sources held (scan of 2026-09-02):
+Greenberg's own taxonomy of citation distortion, which is relayed by Clark only in
+outline; a test-oracle literature on corpora of this shape.
 
 ## What passing this corpus does not show
 
@@ -220,7 +307,10 @@ and a verdict appended in history.
   class found in practice gets a seed before it gets a fix.
 - That a quotation is *true*, or that its source is the right one. Resolution shows a
   span exists in the named artifact and nothing more.
-- That the load-bearing elision, the undercut, or the widened absence are classified
-  correctly. Those rows say `surface` and `review` because the machinery can only make
-  them visible, and a row claiming otherwise would be a fifth thing that says it is
-  checked and is not.
+- That the load-bearing elision, the undercut, the datum attack, the reversal, the
+  widened scope, or the chain with no empirical base are classified correctly. Those rows
+  say `review` because the machinery can only make them visible, and a row claiming
+  otherwise would be a fifth thing that says it is checked and is not.
+- That the fixtures are safe to cite. They are synthetic, their authors are fictional,
+  and each says so in its first lines; a reader who quotes a fixture as a source has done
+  the thing the corpus exists to catch.

@@ -5,7 +5,7 @@ stated: 2026-09-02T08:00:00-07:00
 author: main
 grade: asserted
 supersedes: none
-verbatim_sha: c70d62e891fc194c46a2a84149bd7fa964b352d2f24020501db715b5c52da046
+verbatim_sha: 5475920aa283ee3550380971909d051ee5025994c79b3ae35321a16f4c0419b4
 ---
 
 ## Assertion

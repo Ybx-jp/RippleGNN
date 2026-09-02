@@ -1,11 +1,11 @@
 ---
-id: A0001-stale-fraction-governs-mean-aggregation-error
+id: A0001-stale-fraction-law
 kind: claim
 stated: 2026-09-02T08:00:00-07:00
 author: main
 grade: measured
 supersedes: none
-verbatim_sha: 958287710bc8298a4dd355693061da7b28c3730b21f57a06e7509c121e893e38
+verbatim_sha: 0050b7c7a139a3105b6eefc7620cc776358ab508f66ae1ed83c5756ef4a074c5
 ---
 
 ## Assertion
@@ -35,16 +35,16 @@ sweep confirms the mechanism to three decimals, so the direction is structural.
 - source: fx-paper-a · §1
   speaker: fixture paper A authors
   quote: "Under mean aggregation the per-neighbour contribution is scaled by 1/deg, so the error induced by a stale fraction f of the neighbourhood is proportional to f and does not grow with degree."
+- source: fx-paper-a · §3
+  speaker: fixture paper A authors
+  quote: "The naïve estimator that counts stale neighbours over-ranks hubs."
 
 <!-- APPEND BELOW THIS LINE ONLY -->
 
 ## Verdicts
 
-- 2026-09-02T09:00:00-07:00 · retracted · grade: measured · author: main
-  evidence: defect: Backing quote 1 does not verify against fx-paper-a
-  note: the quote was fabricated
-- 2026-09-02T10:00:00-07:00 · corroborated · grade: measured · author: main
-  evidence: lab: ledger/corpus/fixtures/lab-006.md § "Observation" @corpus
+- 2026-09-02T10:00:00-07:00 · superseded · grade: measured · author: main
+  evidence: entry: A0002-stale-fraction-law-v2 · supersedes
 
 ## References
 

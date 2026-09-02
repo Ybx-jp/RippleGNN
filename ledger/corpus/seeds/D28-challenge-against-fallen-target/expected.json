@@ -11,8 +11,8 @@
     {
       "checker": "propagate",
       "outcome": "fail",
-      "where": "A0004 Grounds",
-      "why": "propagate.py appends nothing to a fallen target — a terminal status takes no further verdict — and reports the act as illegal instead"
+      "where": "A0003 Verdicts",
+      "why": "no contested verdict is appended to A0003, whose status is terminal, and the act against it is reported as illegal"
     }
   ]
 }

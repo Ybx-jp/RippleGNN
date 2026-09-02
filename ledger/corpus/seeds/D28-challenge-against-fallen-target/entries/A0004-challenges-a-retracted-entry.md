@@ -21,7 +21,7 @@ condition: as in A0003
 ## Grounds
 
 - source: fx-paper-b · Theorem 2
-- entry: A0003-fabricated · challenges
+- entry: A0003-admissible-band · challenges
 
 ## Warrant
 

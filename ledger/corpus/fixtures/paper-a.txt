@@ -22,3 +22,4 @@ A refresh policy that ranks nodes by stale count will over-rank hubs; under mean
 aggregation the stale fraction is the quantity that matters, provided the perturbation
 magnitude is fixed across neighbours. Neither of the two prior papers reports realised
 error against predicted error. We do not claim the result transfers to sum aggregation.
+The naïve estimator that counts stale neighbours over-ranks hubs.

@@ -6,7 +6,7 @@
       "checker": "validate",
       "outcome": "fail",
       "where": "A0001 frontmatter grade",
-      "why": "measured requires a lab: or experiment: ground; this entry has only a source: ground and a quote in which the expert says the figure is inferred, not measured"
+      "why": "measured requires a lab: or experiment: ground; this entry's only ground is a source: pointer"
     },
     {
       "checker": "validate",

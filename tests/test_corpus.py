@@ -10,6 +10,7 @@ prove the wrong thing about the checkers built against it.
 import hashlib
 import json
 import re
+import unicodedata
 from pathlib import Path
 
 import pytest
@@ -43,11 +44,18 @@ def test_expectations_are_matchable(seed):
         assert row["checker"] in CHECKERS, row
         assert row["outcome"] in OUTCOMES, row
         assert row["where"] and row["why"], row
-    non_pass = [r for r in exp["expect"] if r["outcome"] != "pass"]
+        # review is not a program: its rows always judge, and no checker row does.
+        assert (row["checker"] == "review") == (row["outcome"] == "judge"), row
+    checker_non_pass = [
+        r for r in exp["expect"] if r["checker"] != "review" and r["outcome"] != "pass"
+    ]
+    review_rows = [r for r in exp["expect"] if r["checker"] == "review"]
     if exp["known_good"]:
-        assert seed.name.startswith("K") and not non_pass
+        assert seed.name.startswith("K") and not checker_non_pass
     else:
-        assert seed.name.startswith("D") and non_pass
+        # A defect seed is caught or flagged by a checker, or it is review-only: the
+        # machinery passes and the review row is the whole record of what is wrong.
+        assert seed.name.startswith("D") and (checker_non_pass or review_rows)
     assert entry_files(seed) or (seed / "commits").is_dir()
     if (seed / "commits").is_dir():
         assert "history" in exp
@@ -67,12 +75,18 @@ def section(text, name):
     return m.group(1)
 
 
+def norm(text):
+    """The README's normalization: NFC, emphasis markers removed, whitespace collapsed."""
+    text = unicodedata.normalize("NFC", text).replace("*", "").replace("`", "")
+    return " ".join(text.split())
+
+
 def canonical_sha(text):
-    scope = [ln.strip() for ln in section(text, "Scope").splitlines() if ln.strip()]
-    quotes = [
-        " ".join(q.split()) for q in re.findall(r"^\s+quote: (.*)$", section(text, "Backing"), re.M)
-    ]
-    payload = "\n".join(scope) + "\n\n" + "\n".join(quotes)
+    scope = [norm(ln) for ln in section(text, "Scope").splitlines() if ln.strip()]
+    backing = section(text, "Backing")
+    blocks = re.findall(r"^- source: (.*)\n\s+speaker: (.*)\n\s+quote: (.*)$", backing, re.M)
+    lines = sorted(f"{norm(s)} | {norm(sp)} | {norm(q)}" for s, sp, q in blocks)
+    payload = "\n".join(scope) + "\n\n" + "\n".join(lines)
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 

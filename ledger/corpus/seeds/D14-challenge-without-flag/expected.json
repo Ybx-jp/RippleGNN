@@ -6,7 +6,7 @@
       "checker": "propagate",
       "outcome": "fail",
       "where": "A0001 Verdicts",
-      "why": "A0002 cites A0001 · challenges but A0001 carries no propagated contested verdict; propagate.py appends it and exits non-zero"
+      "why": "A0002 cites A0001 · challenges but A0001 carries no propagated contested verdict"
     }
   ]
 }

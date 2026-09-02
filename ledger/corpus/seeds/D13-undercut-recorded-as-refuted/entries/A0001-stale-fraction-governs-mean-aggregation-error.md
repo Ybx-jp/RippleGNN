@@ -5,7 +5,7 @@ stated: 2026-09-02T08:00:00-07:00
 author: main
 grade: measured
 supersedes: none
-verbatim_sha: 958287710bc8298a4dd355693061da7b28c3730b21f57a06e7509c121e893e38
+verbatim_sha: b55f51c5c6ee9273514437393b1c5cdeae2d2b39f7532bc0db7a8dfe5fd41809
 ---
 
 ## Assertion
@@ -40,9 +40,9 @@ sweep confirms the mechanism to three decimals, so the direction is structural.
 
 ## Verdicts
 
-- 2026-09-02T09:00:00-07:00 · refuted · grade: argued · author: main
-  evidence: source: fx-paper-b · Theorem 2
-  note: the warrant's 1/deg argument is incomplete: the normalisation argument in paper B is the mechanism, not per-neighbour weighting; the sweep numbers stand
+- 2026-09-02T09:00:00-07:00 · refuted · grade: measured · author: main
+  evidence: lab: ledger/corpus/fixtures/lab-008.md § "Observation" @corpus
+  note: the 005 probe scaled the perturbation by 1/deg, so the sweep does not test aggregation; the numbers reproduce
 
 ## References
 

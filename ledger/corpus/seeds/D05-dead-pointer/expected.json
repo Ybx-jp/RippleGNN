@@ -11,8 +11,14 @@
     {
       "checker": "resolve",
       "outcome": "fail",
-      "where": "A0001 Grounds and Backing",
-      "why": "source id fx-consult-dl-r2 has no registry row; the check cannot run and must say so, never pass silently"
+      "where": "A0001 Grounds",
+      "why": "source id fx-consult-dl-r2 has no registry row; the check cannot run and says so, never passing silently"
+    },
+    {
+      "checker": "resolve",
+      "outcome": "fail",
+      "where": "A0001 Backing quote 1",
+      "why": "the same unregistered source id; the quote cannot be checked"
     }
   ]
 }

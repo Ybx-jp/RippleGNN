@@ -5,7 +5,7 @@ stated: 2026-09-02T10:00:00-07:00
 author: main
 grade: measured
 supersedes: A0001-stale-fraction-law
-verbatim_sha: eb683b1fffe8bac679234e355ad6eca7233c3b4fcaa5a4c66cfe901cc95d34f8
+verbatim_sha: 5ca290b94b191f610d815c4c250f196dd764025cab00cc0e95a3cd201b0f26bb
 ---
 
 ## Assertion

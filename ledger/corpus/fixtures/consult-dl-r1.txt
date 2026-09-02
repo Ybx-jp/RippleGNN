@@ -10,4 +10,6 @@ theorem, not mine. I label the saturation figure inferred from the two tables, n
 measured. Poursafaei et al. did not land in anything I retrieved. A non-inferiority
 claim needs a margin stated before the data is seen, otherwise it can be met by any
 result. A metric on which no-refresh wins measures stability, not faithfulness; it
-must be reported as such, never as faithfulness.
+must be reported as such, never as faithfulness. My own expectation is that under mean
+aggregation the stale fraction, not the count, governs the error. Their bound is tight
+only under mean aggregation.

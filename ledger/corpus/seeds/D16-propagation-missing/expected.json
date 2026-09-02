@@ -6,7 +6,7 @@
       "checker": "propagate",
       "outcome": "fail",
       "where": "A0002 Verdicts",
-      "why": "A0002 cites A0001 cites-as-live and A0001 has fallen to refuted, but A0002 carries no contested verdict; propagate.py appends one, author propagation, and exits non-zero"
+      "why": "A0002 cites A0001 cites-as-live and A0001 has fallen to refuted, but A0002 carries no contested verdict"
     },
     {
       "checker": "references",

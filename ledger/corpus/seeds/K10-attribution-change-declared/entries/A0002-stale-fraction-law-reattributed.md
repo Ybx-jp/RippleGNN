@@ -1,11 +1,12 @@
 ---
-id: A0003-fabricated
+id: A0002-stale-fraction-law-reattributed
 kind: claim
-stated: 2026-09-02T08:00:00-07:00
+stated: 2026-09-02T10:00:00-07:00
 author: main
 grade: measured
-supersedes: none
-verbatim_sha: 958287710bc8298a4dd355693061da7b28c3730b21f57a06e7509c121e893e38
+supersedes: A0001-stale-fraction-law
+verbatim_change: speaker corrected; the quote text and source are unchanged
+verbatim_sha: c6a80023a6a4cf10bb18690fa041246ad80efedddeb1a865bf443b46d0694ad5
 ---
 
 ## Assertion
@@ -33,15 +34,13 @@ sweep confirms the mechanism to three decimals, so the direction is structural.
 ## Backing
 
 - source: fx-paper-a · §1
-  speaker: fixture paper A authors
+  speaker: dl
   quote: "Under mean aggregation the per-neighbour contribution is scaled by 1/deg, so the error induced by a stale fraction f of the neighbourhood is proportional to f and does not grow with degree."
 
 <!-- APPEND BELOW THIS LINE ONLY -->
 
 ## Verdicts
 
-- 2026-09-02T09:00:00-07:00 · retracted · grade: measured · author: main
-  evidence: defect: Backing quote 1 does not verify
 
 ## References
 

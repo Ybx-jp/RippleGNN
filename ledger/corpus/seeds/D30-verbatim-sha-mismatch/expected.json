@@ -6,7 +6,7 @@
       "checker": "validate",
       "outcome": "fail",
       "where": "A0001 frontmatter verbatim_sha",
-      "why": "validate.py recomputes the fingerprint from the canonicalized Scope and quotes and the declared value differs"
+      "why": "the declared verbatim_sha differs from the value computed from Scope and Backing"
     }
   ]
 }
