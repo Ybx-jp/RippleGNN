@@ -227,7 +227,9 @@ is reported until a human re-verdicts. A `challenges` act whose target lacks tha
 verdict, or whose target is fallen, is a failure, and so is a `propagation` verdict
 whose named cause does not exist. A dependent flagged because its live-cited ground
 fell cannot return to `corroborated`: its Grounds are immutable and still cite the
-fallen entry, so the reference check keeps failing until it is superseded. A document
+fallen entry, so the reference check keeps failing until it is superseded; once it has
+fallen itself, its Grounds are history, exempt from the act check, and it needs no
+further flag, since a verdict after a terminal status is illegal. A document
 that cites an entry `cites-as-live` after the entry is superseded or refuted fails the
 same way; the filter a reader must apply every time is applied for them at check time.
 

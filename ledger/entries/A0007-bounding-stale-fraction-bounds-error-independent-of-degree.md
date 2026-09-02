@@ -1,10 +1,10 @@
 ---
-id: A0004-bounding-stale-fraction-bounds-error-independent-of-degree
+id: A0007-bounding-stale-fraction-bounds-error-independent-of-degree
 kind: claim
-stated: 2026-09-02T16:23:00-07:00
+stated: 2026-09-02T16:32:00-07:00
 author: main
 grade: argued
-supersedes: none
+supersedes: A0004-bounding-stale-fraction-bounds-error-independent-of-degree
 verbatim_sha: dd334e1214c3e47abb94cb6e232301dc3fb7b84c0b27ac25e420ee57196cd889
 ---
 
@@ -23,8 +23,8 @@ condition: conditional on the law holding at the deployed depth and weights; the
 
 ## Grounds
 
-- entry: A0002-stale-fraction-governs-mean-aggregation-error · cites-as-live
-- entry: A0003-fraction-law-holds-with-trained-weights-and-depth · cites-as-live
+- entry: A0005-stale-fraction-governs-mean-aggregation-error · cites-as-live
+- entry: A0006-fraction-law-holds-with-trained-weights-and-depth · cites-as-live
 
 ## Warrant
 
@@ -42,11 +42,5 @@ none
 
 ## Verdicts
 
-- 2026-09-02T16:31:00-07:00 · contested · grade: measured · author: propagation
-  evidence: entry: A0002-stale-fraction-governs-mean-aggregation-error · fallen
-  note: A0002-stale-fraction-governs-mean-aggregation-error superseded (verdict 1, 2026-09-02T16:30:00-07:00)
-- 2026-09-02T16:32:00-07:00 · superseded · grade: argued · author: main
-  evidence: entry: A0007-bounding-stale-fraction-bounds-error-independent-of-degree · supersedes
-  note: restated on A0005 and A0006; assertion and scope unchanged
 
 ## References

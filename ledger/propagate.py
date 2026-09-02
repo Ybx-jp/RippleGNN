@@ -7,7 +7,8 @@ entry must carry a `contested` verdict by `propagation` naming the challenger. A
 missing verdict is appended with `--write` and is a failure either way, so the flag is
 seen. A `challenges` act against a fallen target is reported as illegal and nothing is
 appended. A `propagation` verdict whose stated cause does not exist — no such
-challenger, no such fall — is an orphan and fails.
+challenger, no such fall — is an orphan and fails. A dependent that has itself fallen
+needs no flag: a verdict after a terminal status is illegal, and its successor is walked.
 
 Run:  python3 ledger/propagate.py [--write]
       Without --write nothing is modified; the missing verdicts are reported. With it
@@ -91,6 +92,11 @@ def run(ledger, write=False):
             if p is None or p.type != "entry" or p.target not in index:
                 continue
             target = index[p.target]
+            if status[e.id] in FALLEN and p.act == "cites-as-live":
+                # A dependent that has itself fallen needs no flag: its status is
+                # terminal, a verdict after it is illegal, and its successor is what
+                # is walked.
+                continue
             if p.act == "cites-as-live" and status[target.id] in FALLEN:
                 if not has_propagated(e, target.id, "fallen"):
                     fv = falling_verdict(target)

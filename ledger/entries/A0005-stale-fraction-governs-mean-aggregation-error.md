@@ -1,11 +1,12 @@
 ---
-id: A0002-stale-fraction-governs-mean-aggregation-error
+id: A0005-stale-fraction-governs-mean-aggregation-error
 kind: claim
-stated: 2026-09-02T16:21:00-07:00
+stated: 2026-09-02T16:30:00-07:00
 author: main
 grade: measured
-supersedes: none
-verbatim_sha: 28e34503ff0505fd426438d48af5600309842b2bf8da49d4c9e54188e6466557
+supersedes: A0002-stale-fraction-governs-mean-aggregation-error
+verbatim_change: the Backing locator named Theorem 1; the remark follows Lemma 1 and precedes Theorem 2. Source, speaker and quote are unchanged
+verbatim_sha: b82cac1e42eff0cf1a0feab6ce9ba4e261227e16c3d06780ca1ac7bafc5e6cde
 ---
 
 ## Assertion
@@ -37,7 +38,7 @@ sum-aggregation column of the same sweep, growing linearly with degree, confirms
 
 ## Backing
 
-- source: gnnautoscale-2021 · §3, the remark after Theorem 1 that introduces Theorem 2
+- source: gnnautoscale-2021 · §3, the remark after Lemma 1 that introduces Theorem 2
   speaker: Fey, Lenssen, Weichert and Leskovec
   quote: "Interestingly, sum aggregation, the most expressive aggregation function (Xu et al., 2019), introduces a factor of |N (v)| to the upper bound, while we can obtain a much tighter upper bound for mean or max aggregation, cf. its proof."
 
@@ -45,10 +46,7 @@ sum-aggregation column of the same sweep, growing linearly with degree, confirms
 
 ## Verdicts
 
-- 2026-09-02T16:30:00-07:00 · superseded · grade: measured · author: main
-  evidence: entry: A0005-stale-fraction-governs-mean-aggregation-error · supersedes
-  note: the Backing locator named a Theorem 1 that is not there; the quoted remark follows Lemma 1. The quote resolved, so no checker saw it; the locator was checked by reading
 
 ## References
 
-- experiments/ROSTER.md · standing · cites-as-fallen
+- experiments/ROSTER.md · standing · cites-as-live

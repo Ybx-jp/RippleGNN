@@ -5,7 +5,8 @@ compatible with the target's current status — `cites-as-live` needs open or
 corroborated, `cites-as-contested` needs contested, `challenges` needs open,
 corroborated or contested, `cites-as-fallen` accepts any status and is the only act
 legal against a fallen one. The filter a reader must apply every time is applied for
-them here.
+them here. An entry that has itself fallen is exempt: its Grounds are immutable history,
+and a dependent whose live-cited ground fell is superseded rather than repaired.
 
 Document to entry: a document cites an entry inline as `(A0007-slug, cites-as-live)`.
 Every cited id exists, the act is compatible with the target's status, and the entry's
@@ -36,6 +37,7 @@ from schema import (  # noqa: E402
     ARCHIVED_ID_RE,
     ARCHIVED_PREFIXES,
     CITATION_RE,
+    FALLEN,
     TERMINAL,
     Report,
     by_id,
@@ -131,6 +133,11 @@ def run(ledger):
     reports = []
 
     for e in entries:
+        if status[e.id] in FALLEN:
+            # A fallen entry's Grounds are immutable and are history: a dependent whose
+            # live-cited ground fell is superseded, and the successor's acts are what is
+            # held to the targets' current statuses.
+            continue
         for raw, p in e.grounds:
             if p is None or p.type != "entry" or p.act not in ACT_ALLOWS:
                 continue

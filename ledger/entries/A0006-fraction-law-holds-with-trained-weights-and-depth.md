@@ -1,12 +1,12 @@
 ---
-id: A0003-fraction-law-holds-with-trained-weights-and-depth
+id: A0006-fraction-law-holds-with-trained-weights-and-depth
 kind: hypothesis
-stated: 2026-09-02T16:22:00-07:00
+stated: 2026-09-02T16:32:00-07:00
 author: main
 grade: argued
 credence: 0.65
 resolves_when: a preregistered experiment under experiments/ measures centre-node embedding error by degree decile at a fixed uniform-random stale fraction on a pinned real graph with a trained two-layer mean-aggregation checkpoint, and reports whether the spread across deciles stays within the margin its preregistration derives
-supersedes: none
+supersedes: A0003-fraction-law-holds-with-trained-weights-and-depth
 verbatim_sha: df453debb2cbca9812fff8e38687e54633614c7a93b25faf0b1b805a0fc7e6a8
 ---
 
@@ -25,7 +25,7 @@ condition: the stale set a uniform random subset of each node's neighbourhood at
 
 ## Grounds
 
-- entry: A0002-stale-fraction-governs-mean-aggregation-error · cites-as-live
+- entry: A0005-stale-fraction-governs-mean-aggregation-error · cites-as-live
 - entry: A0001-sageconv-aggregates-by-mean-unless-told-otherwise · cites-as-live
 
 ## Warrant
@@ -49,13 +49,7 @@ none
 
 ## Verdicts
 
-- 2026-09-02T16:31:00-07:00 · contested · grade: measured · author: propagation
-  evidence: entry: A0002-stale-fraction-governs-mean-aggregation-error · fallen
-  note: A0002-stale-fraction-governs-mean-aggregation-error superseded (verdict 1, 2026-09-02T16:30:00-07:00)
-- 2026-09-02T16:32:00-07:00 · superseded · grade: argued · author: main
-  evidence: entry: A0006-fraction-law-holds-with-trained-weights-and-depth · supersedes
-  note: restated on A0005, the corrected-locator successor of the ground that fell; assertion, scope, credence and falsifier unchanged
 
 ## References
 
-- experiments/ROSTER.md · standing · cites-as-fallen
+- experiments/ROSTER.md · standing · cites-as-live
