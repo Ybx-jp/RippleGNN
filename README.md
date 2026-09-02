@@ -63,7 +63,7 @@ verdicts — the frozen-statement discipline held, so the defective text and its
 correction sit together on the page — and the archive is closed rather than repaired:
 no new document may cite it, and an entry returns only by being re-derived from its
 primary sources. `ledger/README.md` states the quarantine rules, and
-`ledger/references.py` enforces the verbatim half of them mechanically. A replacement
+`ledger/archive/references.py` enforces the verbatim half of them mechanically. A replacement
 apparatus is being designed against the audit's defect classes; no experiment runs
 until it is proven.
 

@@ -1,153 +1,173 @@
-"""Find restatements of archived ledger claims in the documents, and flag violations.
+"""Citations, both directions, checked.
 
-The ledger was quarantined on 2026-08-28 (see ledger/README.md). This checker now
-enforces the verbatim half of the quarantine rule: no new document may copy an archived
-claim. A copy at a location an entry's References section does not already list is a
-violation -- before the quarantine it meant write-time maintenance was skipped; now it
-means the quarantine was breached. References recorded before the quarantine stay
-recorded, and a standing document still carrying a fallen claim is still work.
+Entry to entry: every `entry:` ground names an entry that exists and carries an act
+compatible with the target's current status — `cites-as-live` needs open or
+corroborated, `cites-as-contested` needs contested, `challenges` needs open,
+corroborated or contested, `cites-as-fallen` accepts any status and is the only act
+legal against a fallen one. The filter a reader must apply every time is applied for
+them here.
 
-WHAT THIS CANNOT DO. It matches a frozen fingerprint against the tree, so it finds
-COPIES. A restatement in different words is invisible to it and no amount of tuning
-changes that — it needs semantic matching, which is a different tool with its own error
-rate. Both restatements that motivated this invariant were verbatim, so it catches the
-cases that actually occurred, and this paragraph is here so nobody reads a clean run as
-proof that no uncited restatement exists.
-
-It also does not see unpublished surfaces other than the one the public .gitignore
-names. A claim restated only there is not found and not recorded, and a clean run says
-nothing about it. That is a real coverage gap, accepted because the alternative is worse:
-a finding this checker cannot express without writing an undisclosed path into a public
-file. The gap is the reason a claim restated on an unpublished surface has to be caught
-when it is written, not here.
+Document to entry: a document cites an entry inline as `(A0007-slug, cites-as-live)`.
+Every cited id exists, the act is compatible with the target's status, and the entry's
+References section lists the citing document; every location an entry lists really
+cites it. No document may cite an archived `C###`/`P###` id, by prefix alone. A
+document that carries an entry's Assertion verbatim without citing it is reported too:
+that finds copies, and says nothing about restatements in other words.
 
 Run:  python3 ledger/references.py
-Exit 1 if a refuted or superseded claim still has live references, or if a copy is
-found at a location the entry does not list.
+Exit 1 on any failure.
+Proven against ledger/corpus/ by ledger/corpus/run.py.
 """
 
-import glob
-import io
+from __future__ import annotations
+
 import os
-import re
 import sys
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
-TREE = os.path.dirname(ROOT)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# Documents a claim can be restated in, all addressed from this working tree.
-#
-# Only published surfaces are scanned, plus the one unpublished file the public
-# .gitignore already names. That bound is deliberate and it is not about secrecy: a
-# row in this ledger is a public path, so scanning a surface whose paths may not be
-# written here would produce a finding that cannot be recorded. See WHAT THIS CANNOT
-# DO for the coverage this gives up.
-#
-# The ledger itself is excluded, and so is the inventory it was built from: the
-# inventory is the source of these claims, not a restatement of them.
-PATTERNS = (
-    "*.md", "experiments/*.md", "lab/*.md", "src/**/*.py", "tests/**/*.py",
+from schema import (  # noqa: E402
+    ACT_ALLOWS,
+    ARCHIVED_ID_RE,
+    ARCHIVED_PREFIXES,
+    CITATION_RE,
+    Report,
+    by_id,
+    default_ledger,
+    exit_code,
+    load_entries,
+    normalize,
+    print_reports,
+    read_document,
 )
 
 
-def documents():
-    paths = []
-    for pattern in PATTERNS:
-        paths += glob.glob(os.path.join(TREE, pattern), recursive=True)
-    return [p for p in sorted(set(paths))
-            if "/ledger/" not in p.replace(os.sep, "/")
-            and "claims-inventory-draft" not in p
-            and "ledger-grounding-brief" not in p]
+def run(ledger):
+    entries = load_entries(ledger)
+    index = by_id(entries)
+    status = {e.id: e.status() for e in entries}
+    reports = []
 
+    for e in entries:
+        for raw, p in e.grounds:
+            if p is None or p.type != "entry" or p.act not in ACT_ALLOWS:
+                continue
+            target = index.get(p.target)
+            if target is None:
+                reports.append(
+                    Report("fail", e.prefix, "Grounds", f"cites {p.target}, which does not exist")
+                )
+            elif status[p.target] not in ACT_ALLOWS[p.act]:
+                reports.append(
+                    Report(
+                        "fail",
+                        e.prefix,
+                        "Grounds",
+                        f"{p.act} against {p.target}, whose status is {status[p.target]}; "
+                        f"{p.act} needs {' or '.join(sorted(ACT_ALLOWS[p.act]))}",
+                    )
+                )
 
-def normalize(text):
-    """Collapse whitespace so a fingerprint survives line wrapping in the target."""
-    return " ".join(text.split())
-
-
-def entries():
-    for path in sorted(glob.glob(os.path.join(ROOT, "archive", "claims", "*.md"))
-                       + glob.glob(os.path.join(ROOT, "archive", "predictions", "*.md"))):
-        text = io.open(path, encoding="utf-8").read()
-        fp = re.search(r'^fingerprint:[ \t]*"(.*)"[ \t]*$', text, re.M)
-        ident = re.search(r"^id:[ \t]*(.*)$", text, re.M)
-        if not fp or not ident:
+    cited = {}  # doc name -> {(entry id, act)}
+    for name, path in ledger.docs:
+        body = read_document(path)
+        if body is None:
             continue
-        # Bound the region: the References section that follows contains the words
-        # "refuted" and "superseded" in its own explanatory text, and an unbounded
-        # split read that boilerplate as this entry's latest verdict.
-        verdicts = text.split("## Verdicts", 1)[1].split("## References", 1)[0]
-        status = None
-        for token in re.findall(r"`([a-z-]+)`", verdicts):
-            if token in ("open", "corroborated", "contested", "refuted",
-                         "superseded", "retracted", "non-comparable"):
-                status = token
-        listed = set()
-        if "## References" in text:
-            for line in text.split("## References", 1)[1].splitlines():
-                m = re.match(r"\s*-\s+`([^`]+)`\s*·\s*(\w+)", line)
-                if m:
-                    listed.add((m.group(1), m.group(2)))
-        yield ident.group(1).strip(), fp.group(1), status, listed, path
+        cited[name] = set()
+        seen_archived = sorted({m.group(0) for m in ARCHIVED_ID_RE.finditer(body)})
+        if seen_archived:
+            reports.append(
+                Report(
+                    "fail",
+                    None,
+                    name,
+                    f"cites archived id(s) {', '.join(seen_archived)}; no document may "
+                    "cite the archive",
+                )
+            )
+        for m in CITATION_RE.finditer(body):
+            ident, act = m.group(1), m.group(2)
+            if ident[0] in ARCHIVED_PREFIXES:
+                continue  # already reported by prefix
+            cited[name].add((ident, act))
+            target = index.get(ident)
+            if target is None:
+                reports.append(Report("fail", None, name, f"cites {ident}, which does not exist"))
+                continue
+            if status[ident] not in ACT_ALLOWS[act]:
+                reports.append(
+                    Report(
+                        "fail",
+                        None,
+                        name,
+                        f"{act} against {ident}, whose status is {status[ident]}; "
+                        f"{act} needs {' or '.join(sorted(ACT_ALLOWS[act]))}",
+                    )
+                )
+            if not any(r and r.path == name and r.act == act for _, r in target.references):
+                reports.append(
+                    Report(
+                        "fail",
+                        None,
+                        name,
+                        f"cites {ident} {act} but {ident}'s References section does not "
+                        "list this document",
+                    )
+                )
+        norm_body = normalize(body)
+        for e in entries:
+            needle = normalize(e.assertion)
+            if (
+                len(needle) >= 20
+                and needle in norm_body
+                and not any(i == e.id for i, _ in cited[name])
+            ):
+                reports.append(
+                    Report(
+                        "fail",
+                        None,
+                        name,
+                        f"carries the Assertion of {e.id} verbatim without citing it",
+                    )
+                )
+
+    for e in entries:
+        for raw, r in e.references:
+            if r is None:
+                continue
+            if r.path not in cited:
+                reports.append(
+                    Report(
+                        "fail",
+                        e.prefix,
+                        "References",
+                        f"lists {r.path}, which is not a document this checker can see",
+                    )
+                )
+            elif (e.id, r.act) not in cited[r.path]:
+                reports.append(
+                    Report(
+                        "fail",
+                        e.prefix,
+                        "References",
+                        f"lists {r.path} · {r.act}, but that document does not cite "
+                        f"{e.id} that way",
+                    )
+                )
+    return reports
 
 
 def main():
-    # Keyed by real path, because the private surfaces are reachable at more than one
-    # address through the symlinks (CLAUDE.md and notes/CLAUDE.md are one file). The
-    # shortest relative address wins, so a claim is reported at one location, not two.
-    docs, seen = {}, {}
-    for path in documents():
-        try:
-            body = normalize(io.open(path, encoding="utf-8").read())
-        except (OSError, UnicodeDecodeError):
-            continue
-        real = os.path.realpath(path)
-        rel = os.path.relpath(path, TREE)
-        if real in seen and len(seen[real]) <= len(rel):
-            continue
-        seen[real] = rel
-        docs[real] = body
-
-    unlisted, stale = [], []
-    for ident, fp, status, listed, _ in entries():
-        needle = normalize(fp)
-        if len(needle) < 20:
-            continue  # too short to be distinctive; not worth a false positive
-        found = set()
-        for real, body in docs.items():
-            if needle in body:
-                found.add(seen[real])
-        known = {rel for rel, _ in listed}
-        for rel in sorted(found - known):
-            unlisted.append((ident, rel, status))
-        if status in ("refuted", "superseded", "retracted"):
-            # A `record` is a dated lab note: allowed to be wrong and to stay, which
-            # is its genre's whole point. Only a `standing` document, required to
-            # describe current state, is work when a claim falls.
-            for rel, kind in sorted(listed):
-                if kind == "standing":
-                    stale.append((ident, rel, status))
-
-    if unlisted:
-        print("COPIES FOUND AT LOCATIONS THE ENTRY DOES NOT LIST")
-        print("  (the archive is quarantined -- a new copy of an archived claim "
-              "breaches it)\n")
-        for ident, rel, status in unlisted:
-            print(f"  {rel}\n      restates `{ident}` (status `{status}`)")
-        print()
-
-    if stale:
-        print("REFERENCES TO CLAIMS THAT NO LONGER STAND — these are work to do\n")
-        for ident, rel, status in stale:
-            print(f"  {rel}\n      carries `{ident}`, which is `{status}`")
-        print()
-
-    if not unlisted and not stale:
-        print("No unlisted copies, and no live references to fallen claims.")
-        print("This proves no VERBATIM copy is unaccounted for. It says nothing about "
-              "restatements in different words.")
-        return 0
-    return 1
+    ledger = default_ledger()
+    reports = run(ledger)
+    n = len(load_entries(ledger))
+    if n == 0:
+        print(
+            f"no entries under {os.path.relpath(ledger.entries_dir, ledger.tree)}; nothing to check "
+            "beyond the archived-id scan of the documents"
+        )
+    print_reports(reports, f"references ({n} entries, {len(ledger.docs)} documents)")
+    return exit_code(reports)
 
 
 if __name__ == "__main__":

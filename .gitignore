@@ -30,3 +30,7 @@ scratchpad/*
 
 # Local agent configuration. Not part of the research record.
 /.claude
+
+# Source bytes for the claims ledger, keyed by sha256; the registry row is committed,
+# the third-party text is not.
+ledger/cache/

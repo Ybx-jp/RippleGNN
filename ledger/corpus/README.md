@@ -19,6 +19,8 @@ as such in the commit that makes it.
 ## Layout
 
     corpus/
+      run.py               the runner: every seed through the four checkers, held to
+                           expected.json under the contract below
       fixtures/            synthetic sources the seeds quote: two papers, one consultation,
                            five lab notes. Every fixture says in its first lines that it
                            is synthetic; the authors named in them are fictional.
@@ -48,13 +50,14 @@ across seeds (most seeds have an `A0001`) and mean nothing outside their seed.
        "why": "the quote drops the parenthetical (cosine, L2) with no elision mark"}]}
 
 `checker` is one of `validate`, `resolve`, `references`, `propagate` — the four programs
-that will live beside this directory — or `review`, which is not a program. A checker
+that live beside this directory — or `review`, which is not a program. A checker
 row's `outcome` is `pass`, `fail`, or `flag`; a `review` row's outcome is always `judge`.
 `where` names an entry and one part of it so a runner can match the checker's report to
 the row. `why` describes the outcome for the reader; where it names a mechanism, the
 mechanism is illustrative and the outcome is what binds.
 
-The runner's contract, so it is fixed before the runner exists:
+The runner's contract, fixed before the runner existed and implemented by `run.py`
+(`python3 ledger/corpus/run.py [-v] [SEED ...]`):
 
 - A seed passes when every `fail` and `flag` row is produced by the named checker at the
   named place, **and every checker not named in a non-pass row exits clean.** The second
@@ -75,8 +78,8 @@ The runner's contract, so it is fixed before the runner exists:
 
 ## The schema the seeds are written against
 
-The full schema lands in `../README.md` with the checkers. What follows is what the seeds
-depend on, so the corpus is readable on its own. The names are Toulmin's, in Verheij's
+What follows is what the seeds depend on, so the corpus is readable on its own; it is
+the schema the checkers implement until `../README.md` carries the full statement. The names are Toulmin's, in Verheij's
 (2005) formalization: assertion, grounds, warrant, backing; the three-part split into
 assertion, provenance and publication info is the nanopublication model (Kuhn et al.
 2021); *challenges* is micropublications' relation (Clark, Ciccarese and Goble 2014).

@@ -10,12 +10,16 @@ prove the wrong thing about the checkers built against it.
 import hashlib
 import json
 import re
+import shutil
+import subprocess
+import sys
 import unicodedata
 from pathlib import Path
 
 import pytest
 
 CORPUS = Path(__file__).resolve().parents[1] / "ledger" / "corpus"
+RUNNER = CORPUS / "run.py"
 SEEDS = sorted(p for p in (CORPUS / "seeds").iterdir() if p.is_dir())
 CHECKERS = {"validate", "resolve", "references", "propagate", "review"}
 OUTCOMES = {"pass", "fail", "flag", "judge"}
@@ -121,3 +125,72 @@ def test_no_private_surface_is_named():
         if path.is_file():
             body = path.read_text(encoding="utf-8")
             assert "notes/" not in body and "CLAUDE.md" not in body, path
+
+
+def run_corpus(corpus_dir, *args):
+    """Invoke the runner as the pre-push set does. A second corpus directory is passed
+    through the environment so the runner can be pointed at a tampered copy."""
+    return subprocess.run(
+        [sys.executable, str(RUNNER), *args],
+        capture_output=True,
+        text=True,
+        env={"PATH": "/usr/bin:/bin", "LEDGER_CORPUS": str(corpus_dir)},
+    )
+
+
+def test_the_checkers_pass_the_corpus():
+    """The proof bar. Every seed's expected outcomes are reproduced by the checkers and
+    no checker trips where a seed does not say it should."""
+    result = run_corpus(CORPUS)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert f"{len(SEEDS)}/{len(SEEDS)} seeds pass" in result.stdout
+
+
+def _copy_corpus(tmp_path):
+    dst = tmp_path / "corpus"
+    shutil.copytree(CORPUS, dst, ignore=shutil.ignore_patterns("__pycache__"))
+    return dst
+
+
+def test_the_runner_fails_a_seed_whose_defect_is_not_expected(tmp_path):
+    """The known-negative half of the contract: an unlisted trip is a runner failure."""
+    corpus = _copy_corpus(tmp_path)
+    expected = corpus / "seeds" / "D01-unmarked-deletion" / "expected.json"
+    exp = json.loads(expected.read_text(encoding="utf-8"))
+    exp["expect"] = [r for r in exp["expect"] if r["checker"] != "resolve"]
+    expected.write_text(json.dumps(exp), encoding="utf-8")
+    result = run_corpus(corpus, "D01")
+    assert result.returncode == 1
+    assert "unexpected resolve fail" in result.stdout
+
+
+def test_the_runner_fails_a_known_good_seed_that_is_broken(tmp_path):
+    """The known-positive half: a tampered quote in a known-good seed is caught."""
+    corpus = _copy_corpus(tmp_path)
+    (entry,) = list((corpus / "seeds" / "K01-measured-claim" / "entries").glob("*.md"))
+    text = entry.read_text(encoding="utf-8")
+    entry.write_text(
+        text.replace("does not grow with degree.", "does not grow.", 1), encoding="utf-8"
+    )
+    result = run_corpus(corpus, "K01")
+    assert result.returncode == 1
+    assert "unexpected resolve fail" in result.stdout
+    assert "unexpected validate fail" in result.stdout  # the fingerprint moved too
+
+
+def test_an_expected_row_that_nothing_produces_fails_the_seed(tmp_path):
+    corpus = _copy_corpus(tmp_path)
+    expected = corpus / "seeds" / "K01-measured-claim" / "expected.json"
+    exp = json.loads(expected.read_text(encoding="utf-8"))
+    exp["expect"].append(
+        {
+            "checker": "resolve",
+            "outcome": "fail",
+            "where": "A0001 Backing quote 1",
+            "why": "planted",
+        }
+    )
+    expected.write_text(json.dumps(exp), encoding="utf-8")
+    result = run_corpus(corpus, "K01")
+    assert result.returncode == 1
+    assert "expected resolve fail at A0001 Backing quote 1" in result.stdout
