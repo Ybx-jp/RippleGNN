@@ -273,6 +273,7 @@ and only the human record says what is wrong.
 | open hypothesis without a roster row | D43, K15 | catch |
 | roster status cell stale | D44 | catch |
 | fallen citer held to its immutable acts, or flagged after a terminal status | K16, K17 | pass — a fallen entry's Grounds are history |
+| creating commit misread by rename detection when a successor copies a kept predecessor | K18 | pass — the creating commit is the one that added the file |
 
 Known-good seeds: K01 (a measured claim), K02 (a prediction), K03 (a hypothesis with a
 falsifier), K04 (an absence claim with its search), K05 (a supersession chain), K06
@@ -282,8 +283,10 @@ attribution change declared), K11 (normalization-only differences across a chain
 (a baseline named `no-refresh` in an Assertion), K13 (a consultation quote sharing title
 words with the papers), K14 (a chain with no empirical base), K15 (a roster consistent
 with its hypothesis), K16 and K17 (a dependent superseded after its live-cited ground
-fell, with and without the propagated flag). K01–K03, K09 and K15–K17 test the
-schema's own rules and encode no claim from the canon; the others each stand for one.
+fell, with and without the propagated flag), K18 (a successor written as a near-copy of
+a predecessor that stays in the tree, committed together with the predecessor's
+`superseded` verdict). K01–K03, K09 and K15–K18 test the schema's own rules and encode
+no claim from the canon; the others each stand for one.
 
 ## What the corpus encodes from the canon
 

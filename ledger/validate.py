@@ -415,7 +415,12 @@ def check_history(ledger, entries):
         return out
     for e in entries:
         rel = os.path.relpath(e.path, ledger.repo)
-        log = git(ledger.repo, "log", "--format=%H", "--follow", "--", rel)
+        # No --follow: it runs rename detection against every file in the parent, so a
+        # successor written as a near-copy of a predecessor that is still in the tree is
+        # reported as "renamed" from it, and the creating commit comes back as one where
+        # this file did not exist (corpus K18). An entry is never renamed: its id is its
+        # filename.
+        log = git(ledger.repo, "log", "--format=%H", "--", rel)
         revisions = [h for h in (log or "").split() if h]
         if not revisions:
             continue  # not yet committed: nothing to be immutable against

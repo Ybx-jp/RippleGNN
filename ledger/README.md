@@ -22,7 +22,7 @@ of the stale-fraction law would draw on; the next preregistration is what earns 
     ledger/
       archive/            the quarantined 2026-08 ledger: 56 entries, INDEX, its README,
                           and the two checkers that keep it well-formed as evidence
-      corpus/             the red-team corpus: 55 seeds with committed expected outcomes,
+      corpus/             the red-team corpus: 62 seeds with committed expected outcomes,
                           synthetic fixtures, and run.py, the runner that holds the four
                           checkers to them
       schema.py           the entry parser, normalization, fingerprint and status
