@@ -2,6 +2,13 @@
 
 **Date:** 2026-08-27 · **Component:** refresh error model · **Status:** measured.
 
+> **Corrected in part by lab/007.** The fixed-fraction invariance below is exact because
+> the same perturbation vector was applied to every stale neighbour, which makes the mean
+> move by the fraction times that vector at any degree by arithmetic. With an independent
+> direction per stale neighbour, mean-aggregation error at fixed fraction falls with
+> degree as the inverse square root. The contrast with sum aggregation stands; the flat
+> line is the coherent special case.
+
 ## What was asked
 
 The hand-fed GNNAutoScale span (Section 3, Lemma 1 through Theorem 2, ingested at 100%
