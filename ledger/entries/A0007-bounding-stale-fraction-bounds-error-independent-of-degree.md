@@ -42,5 +42,8 @@ none
 
 ## Verdicts
 
+- 2026-09-02T21:56:00-07:00 · superseded · grade: argued · author: main
+  evidence: entry: A0014-bounding-stale-fraction-bounds-error-by-a-degree-independent-quantity · supersedes
+  note: its ground A0006 was superseded; the guarantee survives as an upper bound at the coherent value and is restated on the successor hypothesis
 
 ## References

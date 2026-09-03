@@ -49,7 +49,13 @@ none
 
 ## Verdicts
 
+- 2026-09-02T21:55:00-07:00 · contested · grade: measured · author: main
+  evidence: lab: lab/007-the-flat-line-was-an-identity-incoherent-staleness-falls-with-degree.md § "Observation" @6720079
+  note: a uniform-random stale set on a real graph sits near the incoherent arm, under which error at fixed fraction falls with degree as the inverse square root; the equality this hypothesis states is expected to fail in the downward direction, and its falsifier would fire for the wrong reason
+- 2026-09-02T21:56:00-07:00 · superseded · grade: measured · author: main
+  evidence: entry: A0013-error-at-fixed-stale-fraction-is-non-increasing-in-degree-on-a-trained-model · supersedes
+  note: restated as non-increasing under mean aggregation and increasing under sum, with the sum arm as the positive control, after the consulted expert's reading of lab/005 and the lab/007 probe
 
 ## References
 
-- experiments/ROSTER.md · standing · cites-as-live
+- experiments/ROSTER.md · standing · cites-as-fallen

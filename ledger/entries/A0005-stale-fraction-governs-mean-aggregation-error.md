@@ -46,7 +46,10 @@ sum-aggregation column of the same sweep, growing linearly with degree, confirms
 
 ## Verdicts
 
+- 2026-09-02T21:56:00-07:00 · superseded · grade: measured · author: main
+  evidence: entry: A0012-stale-fraction-error-is-non-increasing-in-degree-under-mean-aggregation · supersedes
+  note: the assertion holds exactly within its scope, one perturbation applied uniformly to every stale neighbour, and lab/007 shows that flatness is an identity of that design; with independent directions the error falls with degree. The successor carries the coherence condition
 
 ## References
 
-- experiments/ROSTER.md · standing · cites-as-live
+- experiments/ROSTER.md · standing · cites-as-fallen
