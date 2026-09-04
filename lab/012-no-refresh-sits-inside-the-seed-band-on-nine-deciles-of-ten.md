@@ -146,57 +146,43 @@ sparse path's nondeterminism during training.
 
 ## Interpretation
 
-**On the real stream, doing nothing is inside the seed band for the head.** A day of
-the growth stream, half a million edges landing on two thirds of the existing posts,
-moves the fixed head's label on 0.35 percent of them, and the five-seed band is 2
-percent. The ratio is a sixth overall and a twelfth on the top decile's touched posts.
-The gap-floor rule the consultation asked for, applied to this pilot, leaves the
-behavioural arm one eligible cell in forty, the lowest-degree posts touched at one hop,
-and that cell clears the band by a margin of a few thousandths on two of three
-day-length episodes. Every hub cell, the cells the refresh question is about, is
-ineligible. A refresh policy cannot show a behavioural effect where no refresh already
-sits inside the noise of full recomputation, and the selection experiment, whether a
-fidelity probe chooses the policy the head-based oracle would choose, has an oracle
-that on nine deciles of ten cannot tell any policy from doing nothing.
+Rewritten on the day of writing, after lab/013 ran the same pilot at the adversarial
+end. The observation above is unchanged.
 
-**The reason is the fraction law read on real data.** Among touched posts the relative
-L2 change under a day of insertions falls from 0.28 on the bottom decile to 0.016 on
-the top, a factor of seventeen, while the number of arriving edges per post rises with
-degree. Under mean aggregation an arriving neighbour moves the aggregate by its
-distance from the mean divided by the new degree, and on this stream the arriving
-neighbours are posts that resemble the ones already there: the cosine drift of a
-hub's embedding after a day is a ten-thousandth. That is A0012 and A0013's
-non-increasing curve with a real stream in place of a star graph, and it is the
-behaviour those entries predicted for the model the roster's hypothesis favours.
-Sum aggregation raises the gap sevenfold and the band eightfold, because five sum
-checkpoints at 80 to 88 percent accuracy disagree with each other on 16 percent of the
-posts, so the control arm has no headroom either, for the opposite reason.
+**This note measured the lower envelope, and its headline was foreseeable.** The real
+growth stream adds posts and their edges and alters nothing that exists; the
+arriving neighbours resemble the ones already there; aggregation is mean; and the
+head is a subreddit classifier whose label the post's own features fix for most
+posts (lab/010). A0012 and A0013 say that under those conditions the change to a
+hub's aggregate at a fixed fraction of new neighbours is small and non-increasing in
+degree. The pilot confirmed that with numbers: a day of the stream, half a million
+edges on two thirds of the existing posts, moves the head's label on 0.35 percent of
+them against a 2 percent seed band, a sixth overall and a twelfth on the top decile's
+touched posts. What the note adds is the size of the effect and the one place it
+shows: the lowest-degree posts that received a neighbour, where the new edge is a
+large fraction of the neighbourhood and the relative embedding change is 0.28
+against 0.016 on the top decile, a factor of seventeen, the fraction law on a real
+stream. lab/008 ranked streams by how much they can hurt the claim, hot-hub first,
+and this note ran the pilot on the least hurtful one. It is a result about where
+refresh does not matter, at the easy edge of the question, and it should have been
+delivered as such. lab/013 is the other edge.
 
-**The kNN probe has headroom the head does not.** The neighbourhood loss under no
-refresh is 0.11 at a day and 0.015 at an hour, and its floor on the deterministic path
-is zero (lab/002), with the 0.001 run-to-run nondeterminism lab/011 measured on the
-sparse path. The 0.78 seed band beside it in the tables is not its floor; lab/011
-settled that. So the geometric probe sees a day of drift that turns over a ninth of
-every neighbourhood, and the head sees nothing on nine deciles, which is lab/002's
-finding, that semantic and geometric stability can disagree, in the direction that
-matters for this design: the estimand the consultation kept as the downstream arm is
-the one without headroom on this stream.
+**What it is usable for.** Three things. The gap-floor rule applied to this stream
+under this head leaves the behavioural arm one eligible cell in forty, the bottom
+decile's touched posts, and no hub cell, so preregistering that arm as specified on
+this stream would preregister a null; lab/013 finds the same on nine arms of thirteen
+at the adversarial end and says why. The neighbourhood loss under no refresh, 0.11 at
+a day and 0.015 at an hour, falling with degree, against a zero floor on the
+deterministic path (lab/002), is the scale a refresh policy competes over on the
+geometric probe on this stream; the 0.78 seed band in the tables is not that probe's
+floor (lab/011). And the sum control as specified is broken: sum checkpoints trained
+by the mean recipe land at 80 to 88 percent, disagree with each other on 16 percent
+of the posts, and vary by 0.02 on the band between runs, so the arm needs its own
+recipe or is dropped.
 
-**What this does to the design.** Three readings, for the measurement consultation
-with this table. The behavioural arm is a low-degree-touched-posts arm on this stream
-and this head, and is stated as such. Or the head is the wrong instrument: a
-41-way subreddit classifier at 95 percent, whose label a post's own features fix for
-most posts (lab/010), is insensitive to neighbourhood drift by construction, and a
-head whose output depends on the neighbourhood, link prediction over the arriving
-edges or a neighbourhood-derived label, would have to be shown to have a gap before
-it is named. Or the episode is longer than a day, which lab/011 already found trades
-against the number of independent episodes and dissolves the touched stratum. What
-the pilot rules out is running the behavioural arm as designed and reading a null.
-
-**What is not measured here.** The gap under the generator's deletions, which waits
-on the modelling ruling; the gap under sampled inference, where lab/002's floor is not
-zero; the sum arm's accuracy against the mean arm's; and any refresh policy at all,
-since a pilot of the denominator refreshes nothing.
+**What is not measured here.** Any mutation of existing posts, which lab/013 runs;
+the calibrated generator; sampled inference; a neighbourhood-dependent head; any
+refresh policy, since a pilot of the denominator refreshes nothing.
 
 ## Open
 
