@@ -126,8 +126,9 @@ synthetic 213.6 ms, so the cost ratio against the interaction benchmarks holds.
 **Which Reddit is the Reddit post graph is now a choice to declare.** The paper's number
 (11.6M edges) and the copy every PyG user loads (57.3M) are different graphs with
 different degree distributions. The preregistration names one by archive hash and edge
-set, and the pinned checkpoint is trained on that one. The 97.0 F1 in the literature is
-on the paper's graph.
+set, and the pinned checkpoint is trained on that one. Which graph a published F1 refers
+to varies by paper and is read off each paper's stated edge count before a number is
+compared, not assumed.
 
 ## What this corrects
 
@@ -141,9 +142,9 @@ commit after this note; lab/004 stays as written.
 - Whether the hot-hub synthetic stream stays in the design now that the real stream
   has no edges among existing nodes; a question for the modelling consultation, with
   these numbers as the calibration it asked for.
-- Which edge set the preregistration pins. The paper's graph is the one the published
-  F1 and the fidelity study's degree band both refer to; the full graph is what a PyG
-  user gets by default.
+- Which edge set the preregistration pins. The paper's graph is the one lab/004's degree
+  band and the GraphSAGE paper's own numbers refer to; the full graph is what a PyG
+  user gets by default and what later full-batch papers that load it through PyG use.
 - Deletions remain the generator's, and nothing here calibrates them: the data
   records no removals.
 - The untrained-weights control, the seed-churn pilot and the remaining probes in
