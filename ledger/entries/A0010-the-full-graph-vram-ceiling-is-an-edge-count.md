@@ -45,6 +45,9 @@ none
 
 ## Verdicts
 
+- 2026-09-03T20:04:00-07:00 · superseded · grade: measured · author: main
+  evidence: entry: A0015-the-edge-count-vram-ceiling-is-a-property-of-the-per-edge-gather-path · supersedes
+  note: the first sentence holds for the edge-index path and is carried by the successor with the path named; the second, that the Reddit post graph fits at 64 dimensions and runs out of memory at 96 and 128, was measured on a synthetic graph with a 64-wide input, and lab/009 finds the real graph with its 602-wide input runs out of memory on that path at both widths and fits at both on the sparse path
 
 ## References
 
