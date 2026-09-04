@@ -15,25 +15,60 @@ for the next modelling round, so this note runs the pilot at three lengths of th
 growth stream instead and leaves the generator's gap to the ruling. Script:
 `lab/probe_gap.py`, reading the edge sets `lab/probe_reddit_stream.py` writes.
 
-Setup as lab/011: five checkpoints trained on the paper edge set as it stands before
-the episode (two-layer GraphSAGE 602 → 64 → 64, linear head, full-batch Adam at 0.01
-for 100 epochs, seeds 20260903–20260907). For each episode, each checkpoint is run on
-the pre-episode graph, which is the embedding an existing post keeps under no refresh,
-and on the post-episode graph, which is the full recompute. The gap is the difference
-between the two for the same checkpoint, per existing post: whether the head's argmax
-label differs, one minus the overlap of the post's twenty nearest cosine neighbours
-among existing posts, one minus the cosine, and the relative L2 change. The band is
-lab/011's seed churn, recomputed in the same run on the same posts: full recompute
-against full recompute between checkpoints, over the ten seed pairs. New posts have no
-stale embedding and enter nothing. Cells are lab/011's touched strata and degree
-deciles on the post-episode graph. Each gap cell reports the mean over seeds and the
-lower limit of a 95 percent t interval; a cell is eligible when that limit clears the
-band. Episodes: day 20 for one hour, six hours and one day; day 25 for one day as the
-replication; and the day-20 episodes again with sum aggregation in both layers, the
-design's sum control. Before the numbers were read, the untouched stratum served as
-the known negative: a post with no arriving edge within two hops has the same two-layer
-output on both graphs, and its measured cosine drift is at most 2.4 × 10⁻⁷ on every
-run; the one-hop stratum's drift is positive on every seed.
+## Setup
+
+**The task** is node classification. Each post in the Reddit post graph carries a
+label, the subreddit it was posted to, one of 41. The model is a two-layer GraphSAGE
+with mean aggregation (602 input features → 64 → 64) and a linear head on the
+64-dimensional embedding that predicts the label. A checkpoint is the GraphSAGE and
+its head together, trained full-batch with cross-entropy (Adam at 0.01, 100 epochs)
+on the posts the dataset marks as training, restricted to those present in the
+starting graph. Five checkpoints were trained, identical except for the seed
+(20260903–20260907). No link prediction is run anywhere in this note.
+
+**The starting graph** is every post created before day 20 and every edge of the
+paper's 11.6M-edge set whose two endpoints are both such posts: 153,430 posts and
+5.38M edges. Posts are ordered by creation time using the dataset's post ids, and day
+20 is where the published train/validation split falls.
+
+**The mutation** is the real arrival order, not a generator. An episode adds the posts
+created in a window starting at day 20 (one hour: 338 posts; six hours: 2,042; one
+day: 8,625) and every paper edge that has both endpoints present by the end of the
+window. Every arriving edge has at least one new endpoint; the script asserts this,
+and it holds because posts on this graph acquire edges only when they are created.
+Nothing in the starting graph is altered: no edges are deleted or rewired, no
+features or labels change, and no checkpoint is retrained or fine-tuned. The
+post-episode graph is the starting graph plus the new posts and their edges. A
+replication runs the same day-long episode from day 25 on the larger graph that
+exists by then, and a control repeats the day-20 episodes with sum aggregation in
+place of mean.
+
+**What is compared.** For one checkpoint, the embeddings of the existing posts
+computed on the starting graph, which is what those posts keep if nothing is
+refreshed, against the embeddings of the same posts computed on the post-episode
+graph, which is the full recompute. Four quantities per existing post: whether the
+head's predicted label differs between the two, one minus the overlap of the post's
+twenty nearest cosine neighbours among existing posts in the two embeddings, one
+minus the cosine between the two embeddings, and the relative L2 change. This is the
+gap. New posts have no starting-graph embedding and enter no figure. Disagreement is
+between two predictions, not against ground truth; accuracy against ground truth is
+printed once per run as a check on the checkpoints.
+
+**The band** is a different comparison, computed in the same run on the same posts:
+two checkpoints that differ only in seed, both run on the post-episode graph,
+compared on the same four quantities, averaged over the ten pairs of five seeds. It
+is how far two full recomputes disagree with each other for no reason but the seed.
+
+**Cells and the rule.** Existing posts are grouped by whether an arriving edge lands
+on them (touched at one hop), whether a starting-graph neighbour of theirs was
+(touched at two hops only), or neither (untouched), and by degree decile on the
+post-episode graph. Each gap cell reports the mean over the five seeds and the lower
+limit of a 95 percent t interval; a cell is eligible when that limit exceeds the
+band. Before any number was read, the untouched stratum served as the known
+negative: a post with no arriving edge within two hops has an identical two-hop
+neighbourhood on both graphs and so the same two-layer output, and its measured
+cosine drift is at most 2.4 × 10⁻⁷ on every run; the one-hop stratum's drift is
+positive on every seed.
 
 ## Observation
 

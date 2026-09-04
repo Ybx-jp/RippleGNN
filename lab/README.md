@@ -18,3 +18,11 @@ observation survives a change of mind, the interpretation often does not.
 
 This directory is not `experiments/`. Nothing here is a result anyone outside the
 project should cite.
+
+Every entry that reports a measurement carries a `## Setup` section before its
+`## Observation`, written so that a reader who has opened no other document can
+evaluate the result: what the task is, what the data and the starting state are, what
+was changed and by what (a generator, a real stream, a hand edit), what was held fixed,
+what is compared against what, and what the baseline or noise band is. A pointer to an
+earlier note is not a substitute; the earlier note can be named, but the sentences are
+repeated here.
