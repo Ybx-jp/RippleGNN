@@ -140,7 +140,7 @@ def episode(length, seeds, st, day, lo, hi, x, y, old, train_mask, adj_old):
         ),
         shape=(n_all, n_all),
     ).tocsr()
-    touched2 = (A_old @ touched1.astype(np.int8)).astype(bool) & old & ~touched1
+    touched2 = ((A_old @ touched1.astype(np.int32)) > 0) & old & ~touched1
     untouched = old & ~touched1 & ~touched2
     deg = np.bincount(np.r_[lo[e_old | e_ep], hi[e_old | e_ep]], minlength=n_all)
     hours = length * 24

@@ -2,6 +2,21 @@
 
 **Date:** 2026-09-04 · **Component:** experiment design, the margin denominator · **Status:** measured.
 
+> **Corrected in part by lab/017.** The stratum computation summed the indicator of
+> one-hop-touched neighbours in eight-bit integers, so a post with exactly 256 or 512
+> such neighbours was placed in the untouched stratum instead of the two-hop stratum:
+> 3 posts under uniform deletion at 1 percent (untouched 4,230, of which 4,227 are),
+> 3 under uniform insertion at 5 percent (61; 58), 4 under hub-burst 0.5 (85; 81) and
+> 1 under hub-shift 0.25 (1,423; 1,422), all in the top decile; the other nine arms
+> are unaffected. The drift of up to 3.6 × 10⁻⁴ on the untouched stratum of the arms
+> with fewer than a hundred untouched posts was those posts moving, not the sparse
+> product's rounding: with the strata corrected the four arms were rerun and the
+> untouched stratum's cosine drift is at most 2.4 × 10⁻⁷ on every one, as on the other
+> nine. The all-posts and hub rows of the four arms reproduce at the printed precision
+> (a retrained checkpoint differs in the fourth digit), and the two-hop cells gain at
+> most four posts among thousands. The script was corrected in the commit that added
+> lab/017; the tables below are from the run before it.
+
 ## What was asked
 
 lab/012 ran the gap pilot on the real growth stream, which only adds posts and their

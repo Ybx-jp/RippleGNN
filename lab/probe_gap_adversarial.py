@@ -156,7 +156,7 @@ def run_arm(arm, f, seeds, x, y, old, adj0, lo0, hi0, deg0, band_idx, label, day
     A0 = sp.coo_matrix(
         (np.ones(2 * len(lo0), np.int8), (np.r_[lo0, hi0], np.r_[hi0, lo0])), shape=(n, n)
     ).tocsr()
-    touched2 = (A0 @ touched1.astype(np.int8)).astype(bool) & old & ~touched1
+    touched2 = ((A0 @ touched1.astype(np.int32)) > 0) & old & ~touched1
     untouched = old & ~touched1 & ~touched2
     print(
         f"\n=== {arm} {f:g}: {desc}; edges {len(lo0)} -> {len(lo1)}; targets {int(targets.sum())}, "
