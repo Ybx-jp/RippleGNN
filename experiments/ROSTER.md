@@ -10,7 +10,7 @@ claims and the falsifier with it.
 
 | hypothesis | statement | motivating claims | falsifier | status |
 |---|---|---|---|---|
-| (A0013-error-at-fixed-stale-fraction-is-non-increasing-in-degree-on-a-trained-model, cites-as-live) | On a real graph with a trained two-layer mean-aggregation checkpoint, error at a fixed uniform-random stale fraction is non-increasing in degree across deciles within a preregistered margin, and increasing under sum aggregation on the same architecture | (A0012-stale-fraction-error-is-non-increasing-in-degree-under-mean-aggregation, cites-as-live); (A0001-sageconv-aggregates-by-mean-unless-told-otherwise, cites-as-live) | the median error in the top degree decile exceeds the bottom decile's by more than the margin under mean aggregation, or fails to exceed it under sum | open |
+| (A0013-error-at-fixed-stale-fraction-is-non-increasing-in-degree-on-a-trained-model, cites-as-live) | On a real graph with a trained two-layer mean-aggregation checkpoint, error at a fixed uniform-random stale fraction is non-increasing in degree across deciles within a preregistered margin, and increasing under sum aggregation on the same architecture | (A0012-stale-fraction-error-is-non-increasing-in-degree-under-mean-aggregation, cites-as-live); (A0001-sageconv-aggregates-by-mean-unless-told-otherwise, cites-as-live) | the median error in the top degree decile exceeds the bottom decile's by more than the margin under mean aggregation, or fails to exceed it under sum | corroborated |
 
 ## Fallen
 
