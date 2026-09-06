@@ -66,7 +66,10 @@ under mean aggregation, or if under sum aggregation it does not exceed it.
 - 2026-09-05T14:21:00-07:00 · corroborated · grade: measured · author: main
   evidence: lab: lab/017-one-percent-of-edges-makes-half-of-every-neighbourhood-stale-and-at-a-fixed-stale-fraction-error-still-falls-with-degree.md § "Observation" @86804c6
   note: pilot on the day-20 Reddit snapshot with the 100-epoch recipe, five draws each of uniform deletion at 0.01, 0.1 and 1 percent and uniform insertion at 0.1 and 1 percent, five mean and five sum checkpoints; the top decile's median two-hop-only error is 0.085 to 0.231 of the bottom's under mean and 3.2 to 25 times it under sum, the same sign on every checkpoint, draw and stale-fraction bin; the predicted direction, not the resolution, which is the preregistered experiment, and that experiment can no longer be blind on this snapshot
+- 2026-09-05T22:01:00-07:00 · superseded · grade: measured · author: main
+  evidence: entry: A0030-error-at-fixed-stale-fraction-is-non-increasing-in-degree-on-a-trained-model-under-either-coherence-regime · supersedes
+  note: the pilot showed the fixed fraction is realised by uniform insertion, whose deltas are coherent, while uniform deletion's fraction rises with degree through the neighbours' degrees; the condition splits into which neighbours are stale and how their deltas align, the metric is named absolute L2 with relative registered beside it, and the successor carries the consulted expert's round-4 credence on the restatement
 
 ## References
 
-- experiments/ROSTER.md · standing · cites-as-live
+- experiments/ROSTER.md · standing · cites-as-fallen

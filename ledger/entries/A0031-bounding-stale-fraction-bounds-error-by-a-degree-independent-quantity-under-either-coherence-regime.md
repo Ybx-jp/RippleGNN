@@ -1,11 +1,10 @@
 ---
-id: A0014-bounding-stale-fraction-bounds-error-by-a-degree-independent-quantity
+id: A0031-bounding-stale-fraction-bounds-error-by-a-degree-independent-quantity-under-either-coherence-regime
 kind: claim
-stated: 2026-09-02T21:54:00-07:00
+stated: 2026-09-05T22:00:00-07:00
 author: main
 grade: argued
-supersedes: A0007-bounding-stale-fraction-bounds-error-independent-of-degree
-verbatim_change: the Scope's condition now names the coherent value as the bound and drops the equality the predecessor assumed; Backing remains none
+supersedes: A0014-bounding-stale-fraction-bounds-error-by-a-degree-independent-quantity
 verbatim_sha: f5f94526861c7815d36f083adea642b26814b49147faed7ad051d1bb4c0d5cad
 ---
 
@@ -26,7 +25,7 @@ condition: conditional on the law holding at the deployed depth and weights; the
 ## Grounds
 
 - entry: A0012-stale-fraction-error-is-non-increasing-in-degree-under-mean-aggregation · cites-as-live
-- entry: A0013-error-at-fixed-stale-fraction-is-non-increasing-in-degree-on-a-trained-model · cites-as-live
+- entry: A0030-error-at-fixed-stale-fraction-is-non-increasing-in-degree-on-a-trained-model-under-either-coherence-regime · cites-as-live
 
 ## Warrant
 
@@ -46,9 +45,6 @@ none
 <!-- APPEND BELOW THIS LINE ONLY -->
 
 ## Verdicts
-- 2026-09-05T22:01:00-07:00 · superseded · grade: argued · author: main
-  evidence: entry: A0031-bounding-stale-fraction-bounds-error-by-a-degree-independent-quantity-under-either-coherence-regime · supersedes
-  note: its ground A0013 was superseded; the guarantee is unchanged and is restated on the successor hypothesis, which keeps the non-increasing law under both coherence regimes
+
 
 ## References
-
