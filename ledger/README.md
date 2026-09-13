@@ -101,12 +101,12 @@ make every later check read the wrong source. A mismatch means a toolchain that 
 from the one the row names, and the fix is to match it — a quotation checked against a
 different extraction of the same document is a different check.
 
-Three of the six rows regenerate exactly: both arXiv papers, through `pdftotext 24.02.0
+Three of the five rows regenerate exactly: both arXiv papers, through `pdftotext 24.02.0
 (poppler)` in default mode, and the pinned PyTorch Geometric file, read out of the
 environment `uv sync --extra dev` installs.
 
-**Three do not, and cannot.** The consultation transcripts `consult-dl-r3`,
-`consult-dl-r4` and `consult-eval-r4` were received rather than fetched: they have no
+**Two do not, and cannot.** The consultation transcripts `consult-dl-r3` and
+`consult-dl-r4` were received rather than fetched: they have no
 url, and their bytes exist only where they were received. Their text is also not
 publishable as it stands — it cites its own working memory by machine identifier
 throughout, which this repository does not carry — and the bytes are held to a sha256 by
@@ -116,6 +116,16 @@ outside this checkout cannot check the quotations in A0013 and A0030**, and
 `restore-cache.py` names those two entries rather than leaving a bare cache miss to be
 interpreted. A0013 is superseded; A0030 is open, and is the live entry the limit falls
 on. The other 31 entries resolve fully against sources anyone can regenerate.
+
+A sixth row, `consult-eval-r4` — the evaluation-methodology expert's round-4 answer,
+registered 2026-09-05 alongside the modelling expert's — was removed from the registry on
+2026-09-13. No entry quoted it, and this registry holds one row per source an entry
+cites. What that answer settled is the design of a preregistration that does not exist
+yet — absolute L2 primary with relative registered beside it, day 25 pinned, the
+memorization check retired — which is recorded in lab/018 and belongs to the
+preregistration rather than to a claim. Nothing is lost by the removal: the bytes stay in
+any cache that holds them, where `restore-cache.py` reports them as an orphan no row
+names, and the row returns under `claims-ledger source add` when something quotes it.
 
 The archive's own checkers stay live under `archive/`, and are not part of the package:
 they hold the quarantined 2026-08 format, which the package does not read.
