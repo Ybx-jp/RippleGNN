@@ -56,5 +56,9 @@ none
 
 ## Verdicts
 
+- 2026-09-13T15:50:00-07:00 · corroborated · grade: measured · author: main
+  evidence: lab: lab/021-same-and-cross-subreddit-arrivals-each-move-stale-neighbours-together-in-opposed-directions-and-the-real-streams-coherence-is-their-residual.md § "Observation" @3af3b19
+  note: the real stream's growth rows reproduced to the third digit on retrained checkpoints (cosine 0.060 and 0.081, R 0.357 against R_inc 0.203 at ten days); the split by same- and cross-subreddit arrivals that this entry's conditions name as not made finds both halves coherent, at cosine 0.113 and 0.291, and opposed inside a post, so the between reading stands and its stated reason, that the coherent part is the cross-subreddit share, holds only on the foreign half
+
 
 ## References
