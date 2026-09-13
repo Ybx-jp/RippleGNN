@@ -66,8 +66,10 @@ primary sources. `ledger/README.md` states the quarantine rules and the replacem
 schema, which separates a claim from the observation it rests on, the reasoning
 between them, and the verbatim text behind that reasoning, and holds every quotation
 to a contiguous span of the source it names. The checkers that hold entries to the
-schema, and the corpus of seeded defects they are proven against, are published beside
-the entries under `ledger/`. The first entries, the chain a preregistration of the
+schema are `claims-ledger`, a package pinned exactly in this repository's `dev` extra
+and installable on its own with no other dependencies, so a reader who cites an entry
+can run the check that held it and the red-team corpus of seeded defects the checkers
+are proven against. The first entries, the chain a preregistration of the
 stale-fraction law would draw on, were written against it on 2026-09-02, and the
 hypothesis they end in is the first row of `experiments/ROSTER.md`.
 

@@ -13,7 +13,9 @@ quotation, an observation, the project's own reasoning, and the authority behind
 into one blob, so a faithful quote could continue seamlessly into unsourced inference
 and be sealed there by the freeze. The replacement separates the four roles into
 Assertion, Grounds, Warrant and Backing, holds every quotation to its source, and
-derives status from an append-only verdict list. The schema is stated in full below.
+derives status from an append-only verdict list. The schema is stated in full below;
+`claims-ledger` 0.0.1, the package that checks it, is the authority, and the
+statement below is this repository's restatement of it.
 The first entries were written against it on 2026-09-02, the chain a preregistration
 of the stale-fraction law would draw on; the next preregistration is what earns more.
 
@@ -22,13 +24,6 @@ of the stale-fraction law would draw on; the next preregistration is what earns 
     ledger/
       archive/            the quarantined 2026-08 ledger: 56 entries, INDEX, its README,
                           and the two checkers that keep it well-formed as evidence
-      corpus/             the red-team corpus: 62 seeds with committed expected outcomes,
-                          synthetic fixtures, and run.py, the runner that holds the four
-                          checkers to them
-      schema.py           the entry parser, normalization, fingerprint and status
-                          derivation the four checkers share
-      validate.py  resolve.py  references.py  propagate.py
-                          the four checkers, one job each (below)
       entries/            the ledger's entries, one file each, `A####-slug.md`
       sources.jsonl       the source registry — one row per external source an entry
                           cites: id, type, citation, author surnames where the source
@@ -39,47 +34,61 @@ of the stale-fraction law would draw on; the next preregistration is what earns 
 
 ## How the rules are held
 
-Every rule below that can be checked mechanically is checked before each commit by the
-four checkers, and the checkers are themselves held to the corpus under `corpus/` — one
-seed per defect class the archived ledger exhibited, plus one per rule the schema
-creates — before anything they say is trusted. The checkers, the corpus and this
-document are published beside the entries, so a reader runs the check rather than
-taking it on trust, and can verify an entry the way the checkers do: a quotation is a
-contiguous span of the source the entry names, at the locator it gives, and a
-`verbatim_sha` recomputes from the text by the recipe below.
+The checkers are `claims-ledger`, installed from PyPI and pinned exactly in this
+repository's `dev` extra. It declares no runtime dependencies, so a reader who wants to
+verify an entry needs `pip install claims-ledger==0.0.1` and nothing else, and runs the
+same check this repository runs:
 
-Four programs, each run as `python3 ledger/<name>.py` from the repository root, each
-exiting non-zero on a failure and zero on a flag (a report a human judges):
+    claims-ledger check          # or: python3 -m claims_ledger check
 
-- `validate.py` — every entry is well-formed: ids, timestamps, the no-quotation-marks
+The pin is exact rather than floated because a reader who cites an entry should be able
+to run the check that held it, and a different checker version is a different check.
+Moving the pin is a methodology change and is recorded as one. This repository's local
+vocabulary — which documents may cite an entry, which id prefixes are quarantined — is
+the `[tool.claims-ledger]` table in `pyproject.toml`.
+
+Five checkers, each exiting non-zero on a failure and zero on a flag (a report a human
+judges):
+
+- `validate` — every entry is well-formed: ids, timestamps, the no-quotation-marks
   rule in Assertion, Scope at `measured` and above, grade–grounds consistency, the
   absence-claim rule, the verbatim fingerprint, verdict legality and authorship,
   supersession both ways, and — from git — immutability of the region above the APPEND
-  marker and append-only verdicts over the whole history. `--cached` reads staged entries
-  from the index, for the pre-commit hook.
-- `resolve.py` — every pointer resolves to the artifact that established the fact, and
+  marker and append-only verdicts over the whole history.
+- `resolve` — every pointer resolves to the artifact that established the fact, and
   every quotation is a contiguous span of the source it names, elisions marked; a
   consultation-type source's speaker is its expert, and a consultation sentence naming
   another registered author is flagged as relayed. A registry or cache miss is a failure
-  that says the check could not run, never a silent pass. On a retracted entry the
-  defect the verdict states must reproduce.
-- `references.py` — citation acts are compatible with the target's current status,
+  that says the check could not run, never a silent pass.
+- `references` — citation acts are compatible with the target's current status,
   entry to entry and document to entry; document citations and entries' References
   sections agree both ways; no document cites an archived `C###`/`P###` id.
-- `propagate.py` — a dependent of a fallen entry, and the target of a `challenges` act,
+- `propagate` — a dependent of a fallen entry, and the target of a `challenges` act,
   carry the `contested` verdict by `propagation` that records why; `--write` appends the
-  missing ones. It is the one place machinery writes into an entry.
+  missing ones. It is one of the two places machinery writes into an entry.
+- `freshness` — every ground still names the artifact the claim was established on: the
+  path is in the tree and the digest of its pinned section matches the anchor, read out
+  of the commit a `@<commit>` anchor names. A ground that has moved is flagged and the
+  claim is re-judged by a person; `--write` appends the missing `contested` verdicts.
 
-They are proven, not trusted: `python3 ledger/corpus/run.py` runs all four over every
-seed in `corpus/` and holds them to the committed expectations under the contract in
-`corpus/README.md`. A checker is only as good as the seed that exercises it, and a
-defect class found in practice gets a seed before it gets a fix. The runner is in the
-test suite (`tests/test_corpus.py`), so `uv run pytest` is the pre-push check for the
-machinery; the four checkers over the live ledger and the two archive checkers run in
-the pre-commit hook and in the pre-push verification set. What passing the corpus does
-not show is listed at the end of `corpus/README.md`.
+They are proven, not trusted: `claims-ledger corpus` runs all five over a red-team
+corpus of 95 seeds with committed expected outcomes — one per defect class the archived
+ledger exhibited, plus one per rule the schema creates, plus known-good seeds every
+checker must leave alone — and holds them to the contract in the corpus's own README.
+The contract is symmetric: a seed passes when every expected failure is produced at the
+named place and no checker trips where the seed does not say it should. A run that
+checked nothing exits non-zero rather than reporting a clean run over nothing.
 
-The archive's own checkers stay live under `archive/`:
+Until 2026-09-13 the checkers and a 62-seed corpus were vendored under `ledger/` and run
+as `python3 ledger/<name>.py`. They are now the package, whose corpus is a superset of
+the vendored one: every one of the 62 seed names is present, with expectations that have
+moved in places, and 33 seeds are new. Numbers already in the ledger are unaffected —
+all five checkers pass over all 33 entries unchanged — but the corpus is a different
+fixture, so a claim about what the checkers catch is a claim about the 95-seed corpus
+from this date on.
+
+The archive's own checkers stay live under `archive/`, and are not part of the package:
+they hold the quarantined 2026-08 format, which the package does not read.
 
 - `archive/validate.py` — the archived entries stay well-formed against the archived
   schema. The archive is evidence now, and evidence that drifts is worthless.
@@ -261,8 +270,10 @@ same way; the filter a reader must apply every time is applied for them at check
   visible; the classification is a human's, recorded as a verdict, and an entry the
   checks pass is not thereby right.
 - That a defect class not seeded is caught. The seeded classes are the ones the
-  archived ledger actually exhibited plus the ones this schema's own rules create; a
-  class found in practice is added to the corpus before it is fixed in a checker.
+  archived ledger actually exhibited plus the ones this schema's own rules create. The
+  corpus is the package's now, so a class found in practice here gets its seed upstream
+  in `claims-ledger` before it gets a fix there, and this repository picks the fix up by
+  moving its pin — which is a methodology change and recorded as one.
 
 ## Naming, disclosed
 

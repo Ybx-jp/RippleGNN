@@ -29,7 +29,19 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0", "pytest-xdist>=3.6", "ruff==0.15.20", "jupyterlab>=4.3", "seaborn>=0.13"]
+dev = [
+    "pytest>=8.0",
+    "pytest-xdist>=3.6",
+    "ruff==0.15.20",
+    "jupyterlab>=4.3",
+    "seaborn>=0.13",
+    # The claims ledger's checkers. Pinned exactly, not floated: a reader who cites an
+    # entry should be able to run the check that held it, and a floating checker version
+    # is a different check. Moving this pin is a methodology change and is recorded as
+    # one. No runtime dependencies of its own, so `pip install claims-ledger==0.0.1`
+    # alone is enough to check the ledger in a checkout with nothing else installed.
+    "claims-ledger==0.0.1",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/ripple_gnn"]
@@ -62,3 +74,11 @@ explicit = true
 [tool.uv.sources]
 torch = { index = "pytorch-cu128" }
 pyg-lib = { index = "pyg" }
+
+# The claims ledger. The entries, the source registry and the cached source bytes are
+# under `ledger/`; the checkers are `claims-ledger`, installed from PyPI with the dev
+# extra. Every key here restates a value the vendored checkers held as a constant.
+[tool.claims-ledger]
+documents = ["*.md", "experiments/*.md", "lab/*.md", "src/**/*.py", "tests/**/*.py"]
+document-excludes = ["lab/claims-inventory-draft.md"]
+archived-prefixes = ["C", "P"]
