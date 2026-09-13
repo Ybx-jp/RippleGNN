@@ -82,6 +82,7 @@ start.
     uv sync --extra dev
     uv run pytest
     uv run ruff check src tests
+    python3 ledger/restore-cache.py     # source bytes for the ledger; see ledger/README.md
 
 Python 3.12 for this checkout (`.python-version`); the package supports `>=3.11`. torch
 resolves from an explicitly named CUDA 12.8 index so the lockfile records which build was
